@@ -1,0 +1,108 @@
+body{
+ overflow: hidden;	
+}
+
+#spinner > p{
+    color: white;
+    
+    font-size: 30px;
+    margin-left: auto;
+    width: 128px;
+    height: 36px;
+    margin-right: auto;
+    position: relative;
+    top: 10px;
+}
+
+.right{
+	-webkit-transform: translateX(200px); 
+}
+
+.up{
+	-webkit-transform: translateY(-200px); 
+	-webkit-transition: -webkit-transform .4s;
+    -webkit-transition-timing-function: ease-in;
+}
+
+#rightLeft{
+    -webkit-transition: -webkit-transform .4s;
+    -webkit-transition-timing-function: ease-out;	
+}
+
+#spinner{
+    -moz-user-select: none;
+	-webkit-user-select: none;
+    border-radius: 10px;
+    height: 60;
+    margin-left: 30%;
+    margin-top: 250px;
+    width: 200px;
+    height: 200;
+    margin-left: 30%;
+    margin-top: 250px;
+    -webkit-transition: -webkit-transform .4s;
+    -webkit-transition-timing-function: ease-out;
+    /*-webkit-animation:myRight 5s, myUp 5s;*/
+}
+
+@-webkit-keyframes myUp
+{
+from {
+        -webkit-transform: translateX(0px);
+		-webkit-transform: translateY(-200px); 
+    }
+to { 
+        -webkit-transform: translateX(200px);
+        -webkit-transform: translateY(0px); 
+    }
+}
+
+@-webkit-keyframes myRight
+{
+from {
+        -webkit-transform: translateX(0px);
+    }
+to { 
+        -webkit-transform: translateX(200px);
+    }
+}
+
+.spinIt1{
+    animation:mymove 5s;
+    -webkit-animation:mymove1 5s ; /*Safari and Chrome*/
+    -webkit-animation-timing-function: ease-out;
+}
+
+.spinIt2{
+    animation:mymove 5s;
+    -webkit-animation:mymove2 5s ; /*Safari and Chrome*/
+    -webkit-animation-timing-function: ease-out;
+}
+
+.spinIt3{
+    animation:mymove 5s;
+    -webkit-animation:mymove3 5s ; /*Safari and Chrome*/
+    -webkit-animation-timing-function: ease-out;
+}
+
+@-webkit-keyframes mymove1 /*Safari and Chrome*/
+{
+from {-webkit-transform:rotateZ(0deg);}
+to {-webkit-transform:rotateZ(3721deg);}
+}
+
+@-webkit-keyframes mymove2 /*Safari and Chrome*/
+{
+from {-webkit-transform:rotateZ(0deg);}
+to {-webkit-transform:rotateZ(3600deg);}
+}
+
+@-webkit-keyframes mymove3 /*Safari and Chrome*/
+{
+from {-webkit-transform:rotateZ(0deg);}
+to {-webkit-transform:rotateZ(3454deg);}
+}
+
+svg text{ 
+    cursor: pointer;   
+}

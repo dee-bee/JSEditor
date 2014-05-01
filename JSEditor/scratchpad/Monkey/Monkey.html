@@ -1,0 +1,87 @@
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+
+		<script type="text/javascript" src="../../js/jquery-1.7.2.js"></script>
+		<script type="text/javascript" src="../../js/d3.v2.js"></script>
+		
+		<script type="text/javascript" src="../../js/x3dom.debug.js"></script>
+		<link rel="stylesheet" href="../../js/x3dom.css" type="text/css"  />
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			var secondState = false;
+			function shapeClick(e){
+				if(!secondState){
+					//secondState = true;
+					$("X3D")[0].runtime.nextView();
+				}
+				
+				d3.select("#trans2")
+					.attr("translation","0 -50 0")
+					.attr("scale","1 1 1")
+			
+				d3.select("#trans3")
+					.attr("translation","0 -50 0")
+					.attr("scale","1 1 1")
+			
+				d3.select("#trans4")
+					.attr("translation","0 -50 0")
+					.attr("scale","1 1 1")
+				
+				d3.select("#trans2")
+					.transition()
+					.delay("250")
+					.duration(2000)
+					.attr("translation","-10 0 0")
+			
+				d3.select("#trans3")
+					.transition()
+					.delay("750")
+					.duration(2000)
+					.attr("translation","-8.5 0 5")
+			
+				d3.select("#trans4")
+					.transition()
+					.delay("1250")
+					.duration(2000)
+					.attr("translation","-7 0 10")
+					
+				d3.select("Material")
+				 	.transition()
+				 	.duration(3000)
+				 	.attr("diffuseColor", Math.random() + " " 
+				 								+ Math.random() + " " 
+				 								+ Math.random() + " ")
+			}
+
+		</script>
+		
+		<X3D id="spheres" showStat="false" x="0px" y="0px" width="1200px" height="500px" style="float:left;">
+			<Scene DEF='scene'>
+				<!--<navigationInfo headlight='true' type='WALK'></navigationInfo>-->
+				<Viewpoint id="theView" position='0 0 10' ></Viewpoint>
+				<Viewpoint id="theView2"
+				orientation='-0.6070376435629128 0.794452587739609 -0.018718457679483755 1.4617313526690192'
+				position='13.96189571226218 11.447281966560812 4.086071315317737' ></Viewpoint>
+				<Viewpoint id="theView3"
+				orientation='-0.18835846417564234 0.9672905643348277 0.16991189811840818 1.696298364323742'
+				position='7.968137764195169 3.972472187940598 3.1240581621576946' ></Viewpoint>
+				<Background skyColor='1 1 1' ></Background>
+				<Transform id='trans' onmousedown="shapeClick()">
+					<inline url="../../models/dropShip.x3d"></inline>
+				</Transform>
+				<Transform id='trans2' translation="0 0 0" scale=".01 .01 .01">
+					<inline url="../../models/2.x3d"></inline>
+				</Transform>
+				<Transform id='trans3' translation="0 0 0" scale=".01 .01 .01">
+					<inline url="../../models/3.x3d"></inline>
+				</Transform>
+				<Transform id='trans4' translation="0 0 0" scale=".01 .01 .01">
+					<inline url="../../models/4.x3d"></inline>
+				</Transform>												
+			</Scene>
+		</X3D>
+	</body>
+</html>

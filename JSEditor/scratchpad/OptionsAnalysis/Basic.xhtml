@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+	<head xmlns="http://www.w3.org/1999/xhtml">
+		<title>Basic</title>
+
+		<script type="text/javascript" src="./Basic_files/x3dom.debug.js" />
+		<link rel="stylesheet" href="./Basic_files/x3dom.css" type="text/css" />
+
+		<script type="text/javascript" src="./Basic_files/jquery-1.7.2.js" />
+
+		<script type="text/javascript" src="./Basic_files/jquery.highlight-3.js" />
+
+		<script type="text/javascript" src="./Basic_files/util.js" />
+		<script type="text/javascript" src="./Basic_files/xmltoken.js" />
+		<script type="text/javascript" src="./Basic_files/dom.js" />
+		<script type="text/javascript" src="./Basic_files/xpath.js" />
+		<script type="text/javascript" src="./Basic_files/xslt.js" />
+
+		<script type="text/javascript" src="./Basic_files/jquery.treeview.js" />
+		<script type="text/javascript" src="./Basic_files/jquery.cookie.js" />
+		<script type="text/javascript" src="./Basic_files/demo.js" />
+		<link rel="stylesheet" href="./Basic_files/jquery.treeview.css" type="text/css" media="screen" />
+
+		<link type="text/css" href="./Basic_files/jquery-ui-1.8.20.custom.css" rel="stylesheet" />
+		<script type="text/javascript" src="./Basic_files/jquery-ui-1.8.20.custom.min.js" />
+
+		<script type="text/javascript" src="./Basic_files/tiny_mce.js" />
+		<script type="text/javascript" src="./Basic_files/jquery.highlight-3(1).js" />
+
+		<script type="text/javascript" src="./Basic_files/jit.js" />
+		<!--<link type="text/css" href="js/Jit/Examples/css/base.css" rel="stylesheet" />-->
+		<!--<link type="text/css" href="js/Jit/Examples/css/BarChart.css" rel="stylesheet" />-->
+
+		<script type="text/javascript" src="./Basic_files/my_library.js" />
+
+		<script type="text/javascript" src="./Basic_files/d3.v3.js" />
+
+		<script>
+			$(document).ready(function() {
+				//$('#tabs').tabs();
+
+			});
+		</script>
+
+		<style xmlns="http://www.w3.org/1999/xhtml">
+  			table{
+	  			text-align: center;
+  			}
+  
+			.infovis {
+				position: relative;
+				width: 600px;
+				height: 600px;
+				margin: auto;
+				overflow: hidden;
+				background-color: #000000;
+			}
+
+			#infovis {
+				position: relative;
+				width: 600px;
+				height: 600px;
+				margin: auto;
+				overflow: hidden;
+			}
+
+			/*TOOLTIPS*/
+			.tip {
+				color: #111;
+				width: 139px;
+				background-color: white;
+				border: 1px solid #ccc;
+				-moz-box-shadow: #555 2px 2px 8px;
+				-webkit-box-shadow: #555 2px 2px 8px;
+				-o-box-shadow: #555 2px 2px 8px;
+				box-shadow: #555 2px 2px 8px;
+				opacity: 0.9;
+				filter: alpha(opacity=90);
+				font-size: 10px;
+				font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+				padding: 7px;
+			}
+
+			X3D, x3d {
+				border: none;
+			}
+		#rawText{
+          display:none;
+        }
+		</style>
+
+	</head>
+
+	<body xmlns="http://www.w3.org/1999/xhtml"><div xmlns="http://www.w3.org/1999/xhtml" id="theTable"><table><tr><td>Year</td><td>Start Year Value</td><td>End Year Value</td><td>Percent Gain</td><td>Option Premium</td><td>Profit</td></tr><tr><td>1975</td><td>68</td><td>90</td><td>0.32352941176470584</td><td>54.00000000000001</td><td class="profit">166</td></tr><tr><td>1976</td><td>90</td><td>107</td><td>0.18888888888888888</td><td>65</td><td class="profit">105</td></tr><tr><td>1977</td><td>107</td><td>95</td><td>-0.11214953271028039</td><td>73.5</td><td class="profit">-73.5</td></tr><tr><td>1978</td><td>95</td><td>96</td><td>0.010526315789473717</td><td>67.5</td><td class="profit">-57.5</td></tr><tr><td>1979</td><td>96</td><td>107</td><td>0.11458333333333326</td><td>68</td><td class="profit">42</td></tr><tr><td>1980</td><td>107</td><td>135</td><td>0.26168224299065423</td><td>73.5</td><td class="profit">206.5</td></tr><tr><td>1981</td><td>135</td><td>122</td><td>-0.09629629629629632</td><td>87.5</td><td class="profit">-87.5</td></tr><tr><td>1982</td><td>122</td><td>140</td><td>0.14754098360655732</td><td>81</td><td class="profit">99</td></tr><tr><td>1983</td><td>140</td><td>164</td><td>0.17142857142857149</td><td>90</td><td class="profit">150</td></tr><tr><td>1984</td><td>164</td><td>167</td><td>0.018292682926829285</td><td>102.00000000000001</td><td class="profit">-72.00000000000001</td></tr><tr><td>1985</td><td>167</td><td>211</td><td>0.26347305389221565</td><td>103.5</td><td class="profit">336.5</td></tr><tr><td>1986</td><td>211</td><td>242</td><td>0.14691943127962093</td><td>125.50000000000001</td><td class="profit">184.5</td></tr><tr><td>1987</td><td>242</td><td>247</td><td>0.02066115702479343</td><td>141</td><td class="profit">-91</td></tr><tr><td>1988</td><td>247</td><td>277</td><td>0.12145748987854255</td><td>143.50000000000003</td><td class="profit">156.49999999999997</td></tr><tr><td>1989</td><td>277</td><td>353</td><td>0.2743682310469313</td><td>158.50000000000003</td><td class="profit">601.5</td></tr><tr><td>1990</td><td>353</td><td>330</td><td>-0.06515580736543913</td><td>196.50000000000003</td><td class="profit">-196.50000000000003</td></tr><tr><td>1991</td><td>330</td><td>417</td><td>0.26363636363636367</td><td>185</td><td class="profit">685</td></tr><tr><td>1992</td><td>417</td><td>435</td><td>0.043165467625899234</td><td>228.50000000000003</td><td class="profit">-48.50000000000003</td></tr><tr><td>1993</td><td>435</td><td>466</td><td>0.07126436781609202</td><td>237.50000000000003</td><td class="profit">72.49999999999997</td></tr><tr><td>1994</td><td>466</td><td>459</td><td>-0.015021459227467782</td><td>253</td><td class="profit">-253</td></tr><tr><td>1995</td><td>459</td><td>615</td><td>0.33986928104575154</td><td>249.50000000000003</td><td class="profit">1310.5</td></tr><tr><td>1996</td><td>615</td><td>740</td><td>0.2032520325203253</td><td>327.5</td><td class="profit">922.5</td></tr><tr><td>1997</td><td>740</td><td>970</td><td>0.31081081081081074</td><td>390</td><td class="profit">1910</td></tr><tr><td>1998</td><td>970</td><td>1229</td><td>0.26701030927835046</td><td>505.00000000000006</td><td class="profit">2085</td></tr><tr><td>1999</td><td>1229</td><td>1469</td><td>0.1952807160292922</td><td>634.5</td><td class="profit">1765.5</td></tr><tr><td>2000</td><td>1469</td><td>1320</td><td>-0.10142954390741998</td><td>754.5000000000001</td><td class="profit">-754.5000000000001</td></tr><tr><td>2001</td><td>1320</td><td>1148</td><td>-0.13030303030303025</td><td>680</td><td class="profit">-680</td></tr><tr><td>2002</td><td>1148</td><td>879</td><td>-0.23432055749128922</td><td>594.0000000000001</td><td class="profit">-594.0000000000001</td></tr><tr><td>2003</td><td>879</td><td>1111</td><td>0.2639362912400456</td><td>459.50000000000006</td><td class="profit">1860.5</td></tr><tr><td>2004</td><td>1111</td><td>1211</td><td>0.09000900090009001</td><td>575.5000000000001</td><td class="profit">424.4999999999999</td></tr><tr><td>2005</td><td>1211</td><td>1248</td><td>0.030553261767134687</td><td>625.5000000000001</td><td class="profit">-255.5000000000001</td></tr><tr><td>2006</td><td>1248</td><td>1418</td><td>0.13621794871794868</td><td>644.0000000000001</td><td class="profit">1056</td></tr><tr><td>2007</td><td>1418</td><td>1468</td><td>0.035260930888575404</td><td>729.0000000000001</td><td class="profit">-229.0000000000001</td></tr><tr><td>2008</td><td>1468</td><td>903</td><td>-0.38487738419618533</td><td>754.0000000000001</td><td class="profit">-754.0000000000001</td></tr><tr><td>2009</td><td>903</td><td>1115</td><td>0.23477297895902538</td><td>471.50000000000006</td><td class="profit">1648.5</td></tr><tr><td>2010</td><td>1115</td><td>1257</td><td>0.1273542600896862</td><td>577.5</td><td class="profit">842.5</td></tr><tr><td>2011</td><td>1257</td><td>1257</td><td>0</td><td>648.5</td><td class="profit">-648.5</td></tr><tr><td>2012</td><td>1257</td><td>1426</td><td>0.13444709626093876</td><td>648.5</td><td class="profit">1041.5</td></tr></table></div><div xmlns="http://www.w3.org/1999/xhtml" id="rawText">1975	68.56	90.19
+1976	90.19	107.46
+1977	107.46	95.10
+1978	95.10	96.73
+1979	96.73	107.94
+1980	107.94	135.76
+1981	135.76	122.55
+1982	122.55	140.64
+1983	140.64	164.93
+1984	164.93	167.24
+1985	167.24	211.28
+1986	211.28	242.17
+1987	242.17	247.08
+1988	247.08	277.72
+1989	277.72	353.40
+1990	353.40	330.22
+1991	330.22	417.09
+1992	417.09	435.71
+1993	435.71	466.45
+1994	466.45	459.27
+1995	459.27	615.93
+1996	615.93	740.74
+1997	740.74	970.43
+1998	970.43	1229.23
+1999	1229.23	1469.25
+2000	1469.25	1320.28
+2001	1320.28	1148.08
+2002	1148.08	879.82
+2003	879.82	1111.92
+2004	1111.92	1211.92
+2005	1211.92	1248.29
+2006	1248.29	1418.30
+2007	1418.30	1468.36
+2008	1468.36	903.25
+2009	903.25	1115.10
+2010	1115.10	1257.64
+2011	1257.64	1257.60
+2012	1257.60	1426.19
+2013	1426.19	1848.36</div>
+</body></html>

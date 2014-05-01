@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+		<title>Hello World</title>
+        <link rel="stylesheet" type="text/css" href="js/x3dom.css" />
+		<script type="text/javascript" src="js/x3dom.js"></script>
+	</head>
+       
+<body>
+
+    <h1>XHsTML Hello World</h1>
+		<p>
+			With X3D-namespace and case senstive element/node names. Works with self-closing tags (e.g. Viewpoint and Material)
+		</p>
+	<!--	<X3D xmlns="http://www.web3d.org/specifications/x3d-namespace"  showStat="false" showLog="false" x="0px" y="0px" width="400px" height="400px" altImg="helloX3D-alt.png">
+          <Scene>
+            <Viewpoint position='0 0 10' />
+             <Shape>
+                <Appearance>
+                    <Material diffuseColor='0.603 0.894 0.909' />	
+                </Appearance>
+                <Box DEF='box'/>
+             </Shape>
+          </Scene>
+        </X3D>-->
+
+<X3D profile='Immersive' version='3.2' xmlns:xsd='http://www.w3.org/2001/XMLSchema-instance' xsd:noNamespaceSchemaLocation='http://www.web3d.org/specifications/x3d-3.2.xsd'>
+  <head>
+    <meta content='HelloWorld.x3d' name='title'/>
+    <meta content='Simple X3D example' name='description'/>
+    <meta content='30 October 2000' name='created'/>
+    <meta content='15 June 2012' name='modified'/>
+    <meta content='Don Brutzman' name='creator'/>
+    <meta content='http://www.web3D.org' name='reference'/>
+    <meta content='http://x3dGraphics.com' name='reference'/>
+    <meta content='HelloWorld.tall.png' name='Image'/>
+    <meta content='http://www.web3d.org/x3d/content/examples/HelloWorld.x3d' name='identifier'/>
+    <meta content='http://www.web3d.org/x3d/content/examples/license.html' name='license'/>
+    <meta content='X3D-Edit 3.2, https://savage.nps.edu/X3D-Edit' name='generator'/>
+  </head>
+  <Scene>
+    <!-- Example scene to illustrate X3D nodes and fields (XML elements and attributes) -->
+    <Group>
+      <Viewpoint DEF='ViewUpClose' centerOfRotation='0 -1 0' description='Hello world!' position='0 -1 7'/>
+      <Transform rotation='0 1 0 3'>
+        <Shape>
+          <Sphere/>
+          <Appearance>
+            <Material DEF='MaterialLightBlue' diffuseColor='0.1 0.5 1'/>
+            <ImageTexture DEF='ImageCloudlessEarth' url='"earth-topo.png" "earth-topo.jpg" "earth-topo-small.gif" "http://www.web3d.org/x3d/content/examples/Basic/earth-topo.png" "http://www.web3d.org/x3d/content/examples/Basic/earth-topo.jpg" "http://www.web3d.org/x3d/content/examples/Basic/earth-topo-small.gif"'/>
+          </Appearance>
+        </Shape>
+      </Transform>
+      <Transform translation='0 -2 0'>
+        <Shape>
+          <Text DEF='TextMessage' string='"Hello" "world!"'>
+            <FontStyle justify='"MIDDLE" "MIDDLE"'/>
+          </Text>
+          <Appearance>
+            <Material USE='MaterialLightBlue'/>
+          </Appearance>
+        </Shape>
+      </Transform>
+    </Group>
+  </Scene>
+</X3D>
+
+</body>
+</html>
+

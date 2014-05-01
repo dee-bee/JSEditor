@@ -1,0 +1,74 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>JQuery Manipulation</title>
+    <style>
+        label { width: 100px; float: left; clear: both; }
+        #ctrlContainer { border: 1px solid #000; padding: 20px; float: left; width: 280px; margin-left: 20px; }
+        #sliderContainer div { float:left; width: 200px; }
+        #sliderContainer li { height: 25px; }
+        #sliderContainer ul { clear: both; list-style-type: none; margin: 20px 0 10px 0; padding: 0; }
+    </style>
+    <link rel="stylesheet" href="js/x3dom.css" type="text/css"  />
+
+	<script type="text/javascript" src="js/x3dom.js"></script>
+   
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+		<link type="text/css" href="js/jquery_ui/css/smoothness/jquery-ui-1.8.20.custom.css" rel="stylesheet" />
+		<script type="text/javascript" src="js/jquery_ui/js/jquery-ui-1.8.20.custom.min.js"></script>
+
+</head>
+       
+<body style="background-color:#E0E0E0;">
+
+    <h1 onclick="but()">JQuery Manipulation: Using jQuery to manipulate an Attribute</h1>
+
+    <X3D xmlns="http://www.web3d.org/specifications/x3d-namespace" id="spheres" showStat="true" x="0px" y="0px" width="400px" height="400px" style="float:left;">
+        <Scene DEF='scene'>
+            <Viewpoint position='0 0 10' />
+			<Background skyColor='1 1 1' />
+            <Transform id='trans'>
+                <Shape>
+                    <Appearance>
+                        <Material id="matters" diffuseColor='0 1 0' specularColor='.2 .2 .2' />
+                    </Appearance>
+                    <Box DEF='box'/>
+                </Shape>
+            </Transform>
+        </Scene>
+    </X3D>
+	
+    <div id="ctrlContainer">
+        <p>Change the color of the cube using the RGB sliders, which updates the "diffuseColor" attribute of the Material node using jQuery.</p>
+        <div id="sliderContainer">
+            <ul>
+                <li><label>Red</label><div id="redSlider" class="slider"/></li>
+                <li><label>Green</label><div id="greenSlider" class="slider"/></li>
+                <li><label>Blue</label><div id="blueSlider" class="slider"/></li>
+            </ul>
+        </div>
+    </div>
+
+
+	
+    <script type="text/javascript">
+        $(document).ready(function(){
+            
+            // Create the sliders
+            $(".slider").slider({min: 0, max: 1, step: 0.01, slide: function(e, ui) {
+                var newCol =   $("#redSlider").slider('option', 'value') + " " 
+                             + $("#greenSlider").slider('option', 'value') + " "  
+                             + $("#blueSlider").slider('option', 'value');              
+                $("Material").attr("diffuseColor", newCol);
+            }});
+
+			$("Material").attr("diffusecolor","1 0 0")
+
+        });
+        
+        function but(){
+        	$("Material").attr("diffusecolor","1 0 0")
+        }
+    </script>
+
+</body>
+</html>

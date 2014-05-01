@@ -1,0 +1,938 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+
+<script type="text/javascript" src="js/x3dom.js"></script>
+<link rel="stylesheet" href="js/x3dom.css" type="text/css"  />
+
+<script type="text/javascript" src="js/jquery-1.7.2.js"></script>
+<script type="text/javascript" src="js/jquery.highlight-3.js"></script>
+
+<script src="js/ajaxslt-read-only/util.js" type="text/javascript"></script>
+<script src="js/ajaxslt-read-only/xmltoken.js" type="text/javascript"></script>
+<script src="js/ajaxslt-read-only/dom.js" type="text/javascript"></script>
+<script src="js/ajaxslt-read-only/xpath.js" type="text/javascript"></script>
+<script src="js/ajaxslt-read-only/xslt.js" type="text/javascript"></script>
+
+<link rel="stylesheet" href="js/jzaefferer-jquery-treeview-3937863/jquery.treeview.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="js/jzaefferer-jquery-treeview-3937863/demo/screen.css" />
+<script type="text/javascript" src="js/jzaefferer-jquery-treeview-3937863/jquery.treeview.js"></script>
+<script src="js/jzaefferer-jquery-treeview-3937863/lib/jquery.cookie.js" type="text/javascript"></script>
+<script type="text/javascript" src="js/jzaefferer-jquery-treeview-3937863/demo/demo.js"></script>
+
+<link type="text/css" href="js/jquery_ui/css/smoothness/jquery-ui-1.8.20.custom.css" rel="stylesheet" />
+<script type="text/javascript" src="js/jquery_ui/js/jquery-ui-1.8.20.custom.min.js"></script>
+
+<script type="text/javascript" src="js/tiny_mce/tiny_mce.js"></script>
+
+<script type="text/javascript" src="js/tiny_mce/jquery.highlight-3.js"></script>
+
+<script language="javascript">
+var savefile = "/media/Ubuntu-Shared/daniel_backup/code/html5_projects/GeckoFileBrowser/mozdata.txt";
+
+
+function save() {
+	try {
+		netscape.security.PrivilegeManager.enablePrivilege("UniversalXPConnect");
+	} catch (e) {
+		alert("Permission to save file was denied.");
+	}
+	var file = Components.classes["@mozilla.org/file/local;1"]
+		.createInstance(Components.interfaces.nsILocalFile);
+	file.initWithPath( savefile );
+	if ( file.exists() == false ) {
+		alert( "Creating file... " );
+		file.create( Components.interfaces.nsIFile.NORMAL_FILE_TYPE, 420 );
+	}
+	var outputStream = Components.classes["@mozilla.org/network/file-output-stream;1"]
+		.createInstance( Components.interfaces.nsIFileOutputStream );
+
+	outputStream.init( file, 0x04 | 0x08 | 0x20, 420, 0 );
+	var output = document.getElementById('FileData').value;
+	var result = outputStream.write( output, output.length );
+	outputStream.close();
+
+}
+function read() {
+	try {
+		netscape.security.PrivilegeManager.enablePrivilege("UniversalXPConnect");
+	} catch (e) {
+		alert("Permission to read file was denied.");
+	}
+	var file = Components.classes["@mozilla.org/file/local;1"]
+		.createInstance(Components.interfaces.nsILocalFile);
+	savefile = document.getElementById('filename').value;	
+	file.initWithPath( savefile );
+	if ( file.exists() == false ) {
+		alert("File does not exist");
+	}
+	var is = Components.classes["@mozilla.org/network/file-input-stream;1"]
+		.createInstance( Components.interfaces.nsIFileInputStream );
+	is.init( file,0x01, 00004, null);
+	var sis = Components.classes["@mozilla.org/scriptableinputstream;1"]
+		.createInstance( Components.interfaces.nsIScriptableInputStream );
+	sis.init( is );
+	var output = sis.read( sis.available() );
+	document.getElementById('FileData').value = output;
+}
+
+	function test_xslt2() {
+	  var xml_txt = document.getElementById('xmlText').value;	
+	xml_txt = xml_txt.replace(/^\s*/, '').replace(/\n\s*/g, '\n');
+	//xml_txt = xml_txt.replace(/<br \/>/g, '').replace(/<p>/g, '').replace(/<\/p>/g, '');	
+	  //xml_txt = xml_txt.replace(/[&][l][t][;]/g, '<').replace(/[&][g][t][;]/g, '>');
+	 
+	  var xslt_txt = document.getElementById('xsltText').value;
+	xslt_txt = xslt_txt.replace(/^\s*/, '').replace(/\n\s*/g, '\n');	
+	  
+	var xml = xmlParse(xml_txt);
+	  var xslt = xmlParse(xslt_txt);
+	  var html = xsltProcess(xml, xslt);
+	  document.getElementById('htmldisplay').innerHTML = html;
+	}
+
+
+$(function(){
+
+				// Accordion
+				$("#accordion").accordion({ header: "h3" });
+
+				//Autocomplete
+				$("#autocomplete").autocomplete({
+					source: ["c++", "java", "php", "coldfusion", "javascript", "asp", "ruby", "python", "c", "scala", "groovy", "haskell", "perl"]
+				});
+
+				// Button
+				$("#button").button();
+				$("#radioset").buttonset();
+
+				// Tabs
+				$('#tabs').tabs();
+
+				// Dialog
+				$('#dialog').dialog({
+					autoOpen: false,
+					width: 600,
+					buttons: {
+						"Ok": function() {
+							$(this).dialog("close");
+						},
+						"Cancel": function() {
+							$(this).dialog("close");
+						}
+					}
+				});
+
+				// Dialog Link
+				$('#dialog_link').click(function(){
+					$('#dialog').dialog('open');
+					return false;
+				});
+
+				// Datepicker
+				$('#datepicker').datepicker({
+					inline: true
+				});
+
+				// Slider
+				$('#slider').slider({
+					range: true,
+					values: [17, 67]
+				});
+
+				// Progressbar
+				$("#progressbar").progressbar({
+					value: 20
+				});
+
+				//hover states on the static widgets
+				$('#dialog_link, ul#icons li').hover(
+					function() { $(this).addClass('ui-state-hover'); },
+					function() { $(this).removeClass('ui-state-hover'); }
+				);
+
+			});
+
+
+tinyMCE.init({
+		// General options
+		mode : "specific_textareas",
+		theme : "advanced",
+		editor_selector : "mceEditor",
+		plugins : "autolink,lists,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template,wordcount,advlist,autosave,visualblocks",
+
+		// Theme options
+		theme_advanced_buttons1 : "save,newdocument,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,styleselect,formatselect,fontselect,fontsizeselect",
+		theme_advanced_buttons2 : "cut,copy,paste,pastetext,pasteword,|,search,replace,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,link,unlink,anchor,image,cleanup,help,code,|,insertdate,inserttime,preview,|,forecolor,backcolor",
+		theme_advanced_buttons3 : "tablecontrols,|,hr,removeformat,visualaid,|,sub,sup,|,charmap,emotions,iespell,media,advhr,|,print,|,ltr,rtl,|,fullscreen",
+		theme_advanced_buttons4 : "insertlayer,moveforward,movebackward,absolute,|,styleprops,|,cite,abbr,acronym,del,ins,attribs,|,visualchars,nonbreaking,template,pagebreak,restoredraft,visualblocks",
+		theme_advanced_toolbar_location : "top",
+		theme_advanced_toolbar_align : "left",
+		theme_advanced_statusbar_location : "bottom",
+		theme_advanced_resizing : true,
+
+		// Example content CSS (should be your site CSS)
+		content_css : "css/content.css",
+
+		// Drop lists for link/image/media/template dialogs
+		template_external_list_url : "lists/template_list.js",
+		external_link_list_url : "lists/link_list.js",
+		external_image_list_url : "lists/image_list.js",
+		media_external_list_url : "lists/media_list.js",
+
+		// Style formats
+		style_formats : [
+			{title : 'Bold text', inline : 'b'},
+			{title : 'Red text', inline : 'span', styles : {color : '#ff0000'}},
+			{title : 'Red header', block : 'h1', styles : {color : '#ff0000'}},
+			{title : 'Example 1', inline : 'span', classes : 'example1'},
+			{title : 'Example 2', inline : 'span', classes : 'example2'},
+			{title : 'Table styles'},
+			{title : 'Table row 1', selector : 'tr', classes : 'tablerow1'}
+		],
+
+		// Replace values for the template plugin
+		template_replace_values : {
+			username : "Some User",
+			staffid : "991234"
+		}
+	});
+</script>
+
+		<style type="text/css">
+			/*demo page css*/
+			body{ font: 62.5% "Trebuchet MS", sans-serif; margin: 50px;}
+			.demoHeaders { margin-top: 2em; }
+			#dialog_link {padding: .4em 1em .4em 20px;text-decoration: none;position: relative;}
+			#dialog_link span.ui-icon {margin: 0 5px 0 0;position: absolute;left: .2em;top: 50%;margin-top: -8px;}
+			ul#icons {margin: 0; padding: 0;}
+			ul#icons li {margin: 2px; position: relative; padding: 4px 0; cursor: pointer; float: left;  list-style: none;}
+			ul#icons span.ui-icon {float: left; margin: 0 4px;}
+		</style>
+</head>
+
+<body>
+<x3d xmlns="http://www.x3dom.org/x3dom" showStat="false" showLog="false" x="0px" y="0px" width="400px" height="400px" altImg="helloX3D-alt.png">
+          <scene>
+            <viewpoint position='0 0 10' ></viewpoint>
+              <shape>
+                <appearance>
+                    <material diffuseColor='0.603 0.894 0.909' ></material>
+                </appearance>
+                <box DEF='box' ></box>
+             </shape>
+          </scene>
+        </x3d>
+
+<b>File Name:</b>
+<br>
+<input id="filename" type="text">
+<br>
+<br>
+<b>Data:</b><br>
+<textarea id="FileData" height="50" width="50"></textarea>
+
+<textarea id="xmlText" height="50" width="50"><page>
+<message>
+Hello World.
+</message>
+</page></textarea>
+
+<textarea id="xsltText" height="50" width="50"><xsl:stylesheet>
+<xsl:template match="/">
+<xsl:apply-templates select="page/message"/>
+</xsl:template>
+<xsl:template match="page/message">
+<div style="color:green">
+<xsl:value-of select="."/>
+</div>
+</xsl:template>
+</xsl:stylesheet></textarea>
+<br>
+<br>
+<input type="button" value="Save" OnClick="save()">
+<input type="button" value="Load" OnClick="read()">
+<input type="button" value="ParseXSLT" OnClick="test_xslt2()">
+<br>
+<br>
+<div id="htmldisplay"></div>
+<input type="reset" value="Reset">
+
+
+	<h1>Welcome to jQuery UI!</h1>
+	<p style="font-size: 1.3em; line-height: 1.5; margin: 1em 0; width: 50%;">This page demonstrates the widgets you downloaded using the theme you selected in the download builder. We've included and linked to minified versions of <a href="js/jquery-1.7.2.min.js">jQuery</a>, your personalized copy of <a href="js/jquery-ui-1.8.20.custom.min.js">jQuery UI (js/jquery-ui-1.8.20.custom.min.js)</a>, and <a href="css/smoothness/jquery-ui-1.8.20.custom.css">css/smoothness/jquery-ui-1.8.20.custom.css</a> which imports the entire jQuery UI CSS Framework. You can choose to link a subset of the CSS Framework depending on your needs. </p>
+	<p style="font-size: 1.2em; line-height: 1.5; margin: 1em 0; width: 50%;">You've downloaded components and a theme that are compatible with jQuery 1.3+. Please make sure you are using jQuery 1.3+ in your production environment.</p>
+
+	<p style="font-weight: bold; margin: 2em 0 1em; font-size: 1.3em;">YOUR COMPONENTS:</p>
+
+		<!-- Accordion -->
+		<h2 class="demoHeaders">Accordion</h2>
+		<div id="accordion">
+			<div>
+				<h3><a href="#">First</a></h3>
+				<div>Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.</div>
+			</div>
+			<div>
+				<h3><a href="#">Second</a></h3>
+				<div>Phasellus mattis tincidunt nibh.</div>
+			</div>
+			<div>
+				<h3><a href="#">Third</a></h3>
+				<div>Nam dui erat, auctor a, dignissim quis.</div>
+			</div>
+		</div>
+
+		<!-- Autocomplete -->
+		<h2 class="demoHeaders">Autocomplete</h2>
+		<div>
+			<input id="autocomplete" style="z-index: 100; position: relative" title="type &quot;a&quot;" />
+		</div>
+
+		<!-- Button -->
+		<h2 class="demoHeaders">Button</h2>
+		<button id="button">A button element</button>
+		<form style="margin-top: 1em;">
+			<div id="radioset">
+				<input type="radio" id="radio1" name="radio" /><label for="radio1">Choice 1</label>
+				<input type="radio" id="radio2" name="radio" checked="checked" /><label for="radio2">Choice 2</label>
+				<input type="radio" id="radio3" name="radio" /><label for="radio3">Choice 3</label>
+			</div>
+		</form>
+
+
+		<!-- Tabs -->
+		<h2 class="demoHeaders">Tabs</h2>
+		<div id="tabs">
+			<ul>
+				<li><a href="#tabs-1">First</a></li>
+				<li><a href="#tabs-2">Second</a></li>
+				<li><a href="#tabs-3">Third</a></li>
+			</ul>
+			<div id="tabs-1">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+			<div id="tabs-2">Phasellus mattis tincidunt nibh. Cras orci urna, blandit id, pretium vel, aliquet ornare, felis. Maecenas scelerisque sem non nisl. Fusce sed lorem in enim dictum bibendum.</div>
+			<div id="tabs-3">Nam dui erat, auctor a, dignissim quis, sollicitudin eu, felis. Pellentesque nisi urna, interdum eget, sagittis et, consequat vestibulum, lacus. Mauris porttitor ullamcorper augue.</div>
+		</div>
+
+		<div id="tabs2">
+			<ul>
+				<li><a href="#tabs-1">First</a></li>
+				<li><a href="#tabs-2">Second</a></li>
+				<li><a href="#tabs-3">Third</a></li>
+			</ul>
+			<div id="tabs-1">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+			<div id="tabs-2">Phasellus mattis tincidunt nibh. Cras orci urna, blandit id, pretium vel, aliquet ornare, felis. Maecenas scelerisque sem non nisl. Fusce sed lorem in enim dictum bibendum.</div>
+			<div id="tabs-3">Nam dui erat, auctor a, dignissim quis, sollicitudin eu, felis. Pellentesque nisi urna, interdum eget, sagittis et, consequat vestibulum, lacus. Mauris porttitor ullamcorper augue.</div>
+		</div>
+
+		<!-- Dialog NOTE: Dialog is not generated by UI in this demo so it can be visually styled in themeroller-->
+		<h2 class="demoHeaders">Dialog</h2>
+		<p><a href="#" id="dialog_link" class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-newwin"></span>Open Dialog</a></p>
+
+
+		<h2 class="demoHeaders">Overlay and Shadow Classes <em>(not currently used in UI widgets)</em></h2>
+		<div style="position: relative; width: 96%; height: 200px; padding:1% 4%; overflow:hidden;" class="fakewindowcontain">
+			<p>Lorem ipsum dolor sit amet,  Nulla nec tortor. Donec id elit quis purus consectetur consequat. </p><p>Nam congue semper tellus. Sed erat dolor, dapibus sit amet, venenatis ornare, ultrices ut, nisi. Aliquam ante. Suspendisse scelerisque dui nec velit. Duis augue augue, gravida euismod, vulputate ac, facilisis id, sem. Morbi in orci. </p><p>Nulla purus lacus, pulvinar vel, malesuada ac, mattis nec, quam. Nam molestie scelerisque quam. Nullam feugiat cursus lacus.orem ipsum dolor sit amet, consectetur adipiscing elit. Donec libero risus, commodo vitae, pharetra mollis, posuere eu, pede. Nulla nec tortor. Donec id elit quis purus consectetur consequat. </p><p>Nam congue semper tellus. Sed erat dolor, dapibus sit amet, venenatis ornare, ultrices ut, nisi. Aliquam ante. Suspendisse scelerisque dui nec velit. Duis augue augue, gravida euismod, vulputate ac, facilisis id, sem. Morbi in orci. Nulla purus lacus, pulvinar vel, malesuada ac, mattis nec, quam. Nam molestie scelerisque quam. </p><p>Nullam feugiat cursus lacus.orem ipsum dolor sit amet, consectetur adipiscing elit. Donec libero risus, commodo vitae, pharetra mollis, posuere eu, pede. Nulla nec tortor. Donec id elit quis purus consectetur consequat. Nam congue semper tellus. Sed erat dolor, dapibus sit amet, venenatis ornare, ultrices ut, nisi. Aliquam ante. </p><p>Suspendisse scelerisque dui nec velit. Duis augue augue, gravida euismod, vulputate ac, facilisis id, sem. Morbi in orci. Nulla purus lacus, pulvinar vel, malesuada ac, mattis nec, quam. Nam molestie scelerisque quam. Nullam feugiat cursus lacus.orem ipsum dolor sit amet, consectetur adipiscing elit. Donec libero risus, commodo vitae, pharetra mollis, posuere eu, pede. Nulla nec tortor. Donec id elit quis purus consectetur consequat. Nam congue semper tellus. Sed erat dolor, dapibus sit amet, venenatis ornare, ultrices ut, nisi. </p>
+
+			<!-- ui-dialog -->
+			<div class="ui-overlay"><div class="ui-widget-overlay"></div><div class="ui-widget-shadow ui-corner-all" style="width: 302px; height: 152px; position: absolute; left: 50px; top: 30px;"></div></div>
+			<div style="position: absolute; width: 280px; height: 130px;left: 50px; top: 30px; padding: 10px;" class="ui-widget ui-widget-content ui-corner-all">
+				<div class="ui-dialog-content ui-widget-content" style="background: none; border: 0;">
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+				</div>
+			</div>
+
+		</div>
+
+
+		<!-- ui-dialog -->
+		<div id="dialog" title="Dialog Title">
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+		</div>
+
+
+		<h2 class="demoHeaders">Framework Icons (content color preview)</h2>
+		<ul id="icons" class="ui-widget ui-helper-clearfix">
+
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-carat-1-n"><span class="ui-icon ui-icon-carat-1-n"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-carat-1-ne"><span class="ui-icon ui-icon-carat-1-ne"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-carat-1-e"><span class="ui-icon ui-icon-carat-1-e"></span></li>
+
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-carat-1-se"><span class="ui-icon ui-icon-carat-1-se"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-carat-1-s"><span class="ui-icon ui-icon-carat-1-s"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-carat-1-sw"><span class="ui-icon ui-icon-carat-1-sw"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-carat-1-w"><span class="ui-icon ui-icon-carat-1-w"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-carat-1-nw"><span class="ui-icon ui-icon-carat-1-nw"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-carat-2-n-s"><span class="ui-icon ui-icon-carat-2-n-s"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-carat-2-e-w"><span class="ui-icon ui-icon-carat-2-e-w"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-triangle-1-n"><span class="ui-icon ui-icon-triangle-1-n"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-triangle-1-ne"><span class="ui-icon ui-icon-triangle-1-ne"></span></li>
+
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-triangle-1-e"><span class="ui-icon ui-icon-triangle-1-e"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-triangle-1-se"><span class="ui-icon ui-icon-triangle-1-se"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-triangle-1-s"><span class="ui-icon ui-icon-triangle-1-s"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-triangle-1-sw"><span class="ui-icon ui-icon-triangle-1-sw"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-triangle-1-w"><span class="ui-icon ui-icon-triangle-1-w"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-triangle-1-nw"><span class="ui-icon ui-icon-triangle-1-nw"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-triangle-2-n-s"><span class="ui-icon ui-icon-triangle-2-n-s"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-triangle-2-e-w"><span class="ui-icon ui-icon-triangle-2-e-w"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-arrow-1-n"><span class="ui-icon ui-icon-arrow-1-n"></span></li>
+
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-arrow-1-ne"><span class="ui-icon ui-icon-arrow-1-ne"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-arrow-1-e"><span class="ui-icon ui-icon-arrow-1-e"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-arrow-1-se"><span class="ui-icon ui-icon-arrow-1-se"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-arrow-1-s"><span class="ui-icon ui-icon-arrow-1-s"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-arrow-1-sw"><span class="ui-icon ui-icon-arrow-1-sw"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-arrow-1-w"><span class="ui-icon ui-icon-arrow-1-w"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-arrow-1-nw"><span class="ui-icon ui-icon-arrow-1-nw"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-arrow-2-n-s"><span class="ui-icon ui-icon-arrow-2-n-s"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-arrow-2-ne-sw"><span class="ui-icon ui-icon-arrow-2-ne-sw"></span></li>
+
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-arrow-2-e-w"><span class="ui-icon ui-icon-arrow-2-e-w"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-arrow-2-se-nw"><span class="ui-icon ui-icon-arrow-2-se-nw"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-arrowstop-1-n"><span class="ui-icon ui-icon-arrowstop-1-n"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-arrowstop-1-e"><span class="ui-icon ui-icon-arrowstop-1-e"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-arrowstop-1-s"><span class="ui-icon ui-icon-arrowstop-1-s"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-arrowstop-1-w"><span class="ui-icon ui-icon-arrowstop-1-w"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-arrowthick-1-n"><span class="ui-icon ui-icon-arrowthick-1-n"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-arrowthick-1-ne"><span class="ui-icon ui-icon-arrowthick-1-ne"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-arrowthick-1-e"><span class="ui-icon ui-icon-arrowthick-1-e"></span></li>
+
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-arrowthick-1-se"><span class="ui-icon ui-icon-arrowthick-1-se"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-arrowthick-1-s"><span class="ui-icon ui-icon-arrowthick-1-s"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-arrowthick-1-sw"><span class="ui-icon ui-icon-arrowthick-1-sw"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-arrowthick-1-w"><span class="ui-icon ui-icon-arrowthick-1-w"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-arrowthick-1-nw"><span class="ui-icon ui-icon-arrowthick-1-nw"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-arrowthick-2-n-s"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-arrowthick-2-ne-sw"><span class="ui-icon ui-icon-arrowthick-2-ne-sw"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-arrowthick-2-e-w"><span class="ui-icon ui-icon-arrowthick-2-e-w"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-arrowthick-2-se-nw"><span class="ui-icon ui-icon-arrowthick-2-se-nw"></span></li>
+
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-arrowthickstop-1-n"><span class="ui-icon ui-icon-arrowthickstop-1-n"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-arrowthickstop-1-e"><span class="ui-icon ui-icon-arrowthickstop-1-e"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-arrowthickstop-1-s"><span class="ui-icon ui-icon-arrowthickstop-1-s"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-arrowthickstop-1-w"><span class="ui-icon ui-icon-arrowthickstop-1-w"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-arrowreturnthick-1-w"><span class="ui-icon ui-icon-arrowreturnthick-1-w"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-arrowreturnthick-1-n"><span class="ui-icon ui-icon-arrowreturnthick-1-n"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-arrowreturnthick-1-e"><span class="ui-icon ui-icon-arrowreturnthick-1-e"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-arrowreturnthick-1-s"><span class="ui-icon ui-icon-arrowreturnthick-1-s"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-arrowreturn-1-w"><span class="ui-icon ui-icon-arrowreturn-1-w"></span></li>
+
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-arrowreturn-1-n"><span class="ui-icon ui-icon-arrowreturn-1-n"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-arrowreturn-1-e"><span class="ui-icon ui-icon-arrowreturn-1-e"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-arrowreturn-1-s"><span class="ui-icon ui-icon-arrowreturn-1-s"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-arrowrefresh-1-w"><span class="ui-icon ui-icon-arrowrefresh-1-w"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-arrowrefresh-1-n"><span class="ui-icon ui-icon-arrowrefresh-1-n"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-arrowrefresh-1-e"><span class="ui-icon ui-icon-arrowrefresh-1-e"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-arrowrefresh-1-s"><span class="ui-icon ui-icon-arrowrefresh-1-s"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-arrow-4"><span class="ui-icon ui-icon-arrow-4"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-arrow-4-diag"><span class="ui-icon ui-icon-arrow-4-diag"></span></li>
+
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-extlink"><span class="ui-icon ui-icon-extlink"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-newwin"><span class="ui-icon ui-icon-newwin"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-refresh"><span class="ui-icon ui-icon-refresh"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-shuffle"><span class="ui-icon ui-icon-shuffle"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-transfer-e-w"><span class="ui-icon ui-icon-transfer-e-w"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-transferthick-e-w"><span class="ui-icon ui-icon-transferthick-e-w"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-folder-collapsed"><span class="ui-icon ui-icon-folder-collapsed"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-folder-open"><span class="ui-icon ui-icon-folder-open"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-document"><span class="ui-icon ui-icon-document"></span></li>
+
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-document-b"><span class="ui-icon ui-icon-document-b"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-note"><span class="ui-icon ui-icon-note"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-mail-closed"><span class="ui-icon ui-icon-mail-closed"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-mail-open"><span class="ui-icon ui-icon-mail-open"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-suitcase"><span class="ui-icon ui-icon-suitcase"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-comment"><span class="ui-icon ui-icon-comment"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-person"><span class="ui-icon ui-icon-person"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-print"><span class="ui-icon ui-icon-print"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-trash"><span class="ui-icon ui-icon-trash"></span></li>
+
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-locked"><span class="ui-icon ui-icon-locked"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-unlocked"><span class="ui-icon ui-icon-unlocked"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-bookmark"><span class="ui-icon ui-icon-bookmark"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-tag"><span class="ui-icon ui-icon-tag"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-home"><span class="ui-icon ui-icon-home"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-flag"><span class="ui-icon ui-icon-flag"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-calculator"><span class="ui-icon ui-icon-calculator"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-cart"><span class="ui-icon ui-icon-cart"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-pencil"><span class="ui-icon ui-icon-pencil"></span></li>
+
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-clock"><span class="ui-icon ui-icon-clock"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-disk"><span class="ui-icon ui-icon-disk"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-calendar"><span class="ui-icon ui-icon-calendar"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-zoomin"><span class="ui-icon ui-icon-zoomin"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-zoomout"><span class="ui-icon ui-icon-zoomout"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-search"><span class="ui-icon ui-icon-search"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-wrench"><span class="ui-icon ui-icon-wrench"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-gear"><span class="ui-icon ui-icon-gear"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-heart"><span class="ui-icon ui-icon-heart"></span></li>
+
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-star"><span class="ui-icon ui-icon-star"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-link"><span class="ui-icon ui-icon-link"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-cancel"><span class="ui-icon ui-icon-cancel"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-plus"><span class="ui-icon ui-icon-plus"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-plusthick"><span class="ui-icon ui-icon-plusthick"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-minus"><span class="ui-icon ui-icon-minus"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-minusthick"><span class="ui-icon ui-icon-minusthick"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-close"><span class="ui-icon ui-icon-close"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-closethick"><span class="ui-icon ui-icon-closethick"></span></li>
+
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-key"><span class="ui-icon ui-icon-key"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-lightbulb"><span class="ui-icon ui-icon-lightbulb"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-scissors"><span class="ui-icon ui-icon-scissors"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-clipboard"><span class="ui-icon ui-icon-clipboard"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-copy"><span class="ui-icon ui-icon-copy"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-contact"><span class="ui-icon ui-icon-contact"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-image"><span class="ui-icon ui-icon-image"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-video"><span class="ui-icon ui-icon-video"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-script"><span class="ui-icon ui-icon-script"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-alert"><span class="ui-icon ui-icon-alert"></span></li>
+
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-info"><span class="ui-icon ui-icon-info"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-notice"><span class="ui-icon ui-icon-notice"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-help"><span class="ui-icon ui-icon-help"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-check"><span class="ui-icon ui-icon-check"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-bullet"><span class="ui-icon ui-icon-bullet"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-radio-off"><span class="ui-icon ui-icon-radio-off"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-radio-on"><span class="ui-icon ui-icon-radio-on"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-pin-w"><span class="ui-icon ui-icon-pin-w"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-pin-s"><span class="ui-icon ui-icon-pin-s"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-play"><span class="ui-icon ui-icon-play"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-pause"><span class="ui-icon ui-icon-pause"></span></li>
+
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-seek-next"><span class="ui-icon ui-icon-seek-next"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-seek-prev"><span class="ui-icon ui-icon-seek-prev"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-seek-end"><span class="ui-icon ui-icon-seek-end"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-seek-first"><span class="ui-icon ui-icon-seek-first"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-stop"><span class="ui-icon ui-icon-stop"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-eject"><span class="ui-icon ui-icon-eject"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-volume-off"><span class="ui-icon ui-icon-volume-off"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-volume-on"><span class="ui-icon ui-icon-volume-on"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-power"><span class="ui-icon ui-icon-power"></span></li>
+
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-signal-diag"><span class="ui-icon ui-icon-signal-diag"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-signal"><span class="ui-icon ui-icon-signal"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-battery-0"><span class="ui-icon ui-icon-battery-0"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-battery-1"><span class="ui-icon ui-icon-battery-1"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-battery-2"><span class="ui-icon ui-icon-battery-2"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-battery-3"><span class="ui-icon ui-icon-battery-3"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-circle-plus"><span class="ui-icon ui-icon-circle-plus"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-circle-minus"><span class="ui-icon ui-icon-circle-minus"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-circle-close"><span class="ui-icon ui-icon-circle-close"></span></li>
+
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-circle-triangle-e"><span class="ui-icon ui-icon-circle-triangle-e"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-circle-triangle-s"><span class="ui-icon ui-icon-circle-triangle-s"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-circle-triangle-w"><span class="ui-icon ui-icon-circle-triangle-w"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-circle-triangle-n"><span class="ui-icon ui-icon-circle-triangle-n"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-circle-arrow-e"><span class="ui-icon ui-icon-circle-arrow-e"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-circle-arrow-s"><span class="ui-icon ui-icon-circle-arrow-s"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-circle-arrow-w"><span class="ui-icon ui-icon-circle-arrow-w"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-circle-arrow-n"><span class="ui-icon ui-icon-circle-arrow-n"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-circle-zoomin"><span class="ui-icon ui-icon-circle-zoomin"></span></li>
+
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-circle-zoomout"><span class="ui-icon ui-icon-circle-zoomout"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-circle-check"><span class="ui-icon ui-icon-circle-check"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-circlesmall-plus"><span class="ui-icon ui-icon-circlesmall-plus"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-circlesmall-minus"><span class="ui-icon ui-icon-circlesmall-minus"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-circlesmall-close"><span class="ui-icon ui-icon-circlesmall-close"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-squaresmall-plus"><span class="ui-icon ui-icon-squaresmall-plus"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-squaresmall-minus"><span class="ui-icon ui-icon-squaresmall-minus"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-squaresmall-close"><span class="ui-icon ui-icon-squaresmall-close"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-grip-dotted-vertical"><span class="ui-icon ui-icon-grip-dotted-vertical"></span></li>
+
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-grip-dotted-horizontal"><span class="ui-icon ui-icon-grip-dotted-horizontal"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-grip-solid-vertical"><span class="ui-icon ui-icon-grip-solid-vertical"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-grip-solid-horizontal"><span class="ui-icon ui-icon-grip-solid-horizontal"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-gripsmall-diagonal-se"><span class="ui-icon ui-icon-gripsmall-diagonal-se"></span></li>
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-grip-diagonal-se"><span class="ui-icon ui-icon-grip-diagonal-se"></span></li>
+		</ul>
+
+
+		<!-- Slider -->
+		<h2 class="demoHeaders">Slider</h2>
+		<div id="slider"></div>
+
+		<!-- Datepicker -->
+		<h2 class="demoHeaders">Datepicker</h2>
+		<div id="datepicker"></div>
+
+		<!-- Progressbar -->
+		<h2 class="demoHeaders">Progressbar</h2>
+		<div id="progressbar"></div>
+
+		<!-- Highlight / Error -->
+		<h2 class="demoHeaders">Highlight / Error</h2>
+		<div class="ui-widget">
+			<div class="ui-state-highlight ui-corner-all" style="margin-top: 20px; padding: 0 .7em;">
+				<p><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
+				<strong>Hey!</strong> Sample ui-state-highlight style.</p>
+			</div>
+		</div>
+		<br/>
+		<div class="ui-widget">
+			<div class="ui-state-error ui-corner-all" style="padding: 0 .7em;">
+				<p><span class="ui-icon ui-icon-alert" style="float: left; margin-right: .3em;"></span>
+				<strong>Alert:</strong> Sample ui-state-error style.</p>
+			</div>
+		</div>
+
+
+<h1 id="banner"><a href="http://bassistance.de/jquery-plugins/jquery-plugin-treeview/">jQuery Treeview Plugin</a> Demo</h1>
+	<div id="main">
+	
+	<a href="demo.js">Pagecode</a>
+	
+	<h3>Other demos</h3>
+	<ul>
+		<li><a href="large.html">Large Tree Demo</a></li>
+		<li><a href="prerendered.html">Prerendered Large Tree Demo</a></li>
+		<li><a href="async.html">Async Tree Demo</a></li>
+		<li><a href="edit.html">Editable Tree Demo</a></li>
+		<li><a href="simple.html">Simple Tree Demo, famfamfam theme (no lines)</a></li>
+	</ul>
+	
+	<h4>Sample 1 - default</h4>
+	<ul id="browser" class="filetree">
+		<li><span class="folder">Folder 1</span>
+			<ul>
+				<li><span class="file">Item 1.1</span></li>
+			</ul>
+		</li>
+		<li><span class="folder">Folder 2</span>
+			<ul>
+				<li><span class="folder">Subfolder 2.1</span>
+					<ul id="folder21">
+						<li><span class="file">File 2.1.1</span></li>
+						<li><span class="file">File 2.1.2</span></li>
+					</ul>
+				</li>
+				<li><span class="file">File 2.2</span></li>
+			</ul>
+		</li>
+		<li class="closed"><span class="folder">Folder 3 (closed at start)</span>
+			<ul>
+				<li><span class="file">File 3.1</span></li>
+			</ul>
+		</li>
+		<li><span class="file">File 4</span></li>
+	</ul>
+		
+	<h4>Sample 2 - Navigation</h4>
+	
+	<ul id="navigation">
+		<li><a href="?1">Item 1</a>
+			<ul>
+				<li><a href="?1.0">Item 1.0</a>
+					<ul>
+						<li><a href="?1.0.0">Item 1.0.0</a></li>
+					</ul>
+				</li>
+				<li><a href="?1.1">Item 1.1</a></li>
+				<li><a href="?1.2">Item 1.2</a>
+					<ul>
+						<li><a href="?1.2.0">Item 1.2.0</a>
+						<ul>
+							<li><a href="?1.2.0.0">Item 1.2.0.0</a></li>
+							<li><a href="?1.2.0.1">Item 1.2.0.1</a></li>
+							<li><a href="?1.2.0.2">Item 1.2.0.2</a></li>
+						</ul>
+					</li>
+						<li><a href="?1.2.1">Item 1.2.1</a>
+						<ul>
+							<li><a href="?1.2.1.0">Item 1.2.1.0</a></li>
+						</ul>
+					</li>
+						<li><a href="?1.2.2">Item 1.2.2</a>
+						<ul>
+							<li><a href="?1.2.2.0">Item 1.2.2.0</a></li>
+							<li><a href="?1.2.2.1">Item 1.2.2.1</a></li>
+							<li><a href="?1.2.2.2">Item 1.2.2.2</a></li>
+						</ul>
+					</li>
+					</ul>
+				</li>
+			</ul>
+		</li>
+		<li><a href="?2">Item 2</a>
+			<ul>
+				<li><span>Item 2.0</span>
+					<ul>
+						<li><a href="?2.0.0">Item 2.0.0</a>
+						<ul>
+							<li><a href="?2.0.0.0">Item 2.0.0.0</a></li>
+							<li><a href="?2.0.0.1">Item 2.0.0.1</a></li>
+						</ul>
+					</li>
+					</ul>
+				</li>
+				<li><a href="?2.1">Item 2.1</a>
+					<ul>
+						<li><a href="?2.1.0">Item 2.1.0</a>
+						<ul>
+							<li><a href="?2.1.0.0">Item 2.1.0.0</a></li>
+						</ul>
+					</li>
+						<li><a href="?2.1.1">Item 2.1.1</a>
+						<ul>
+							<li><a href="?2.1.1.0abc">Item 2.1.1.0</a></li>
+							<li><a href="?2.1.1.1">Item 2.1.1.1</a></li>
+							<li><a href="?2.1.1.2">Item 2.1.1.2</a></li>
+						</ul>
+					</li>
+						<li><a href="?2.1.2">Item 2.1.2</a>
+						<ul>
+							<li><a href="?2.1.2.0">Item 2.1.2.0</a></li>
+							<li><a href="?2.1.2.1">Item 2.1.2.1</a></li>
+							<li><a href="?2.1.2.2">Item 2.1.2.2</a></li>
+						</ul>
+					</li>
+					</ul>
+				</li>
+			</ul>
+		</li>
+		<li><a href="?3">Item 3</a>
+			<ul>
+				<li class="open"><a href="?3.0">Item 3.0</a>
+					<ul>
+						<li><a href="?3.0.0">Item 3.0.0</a></li>
+						<li><a href="?3.0.1">Item 3.0.1</a>
+							<ul>
+								<li><a href="?3.0.1.0">Item 3.0.1.0</a></li>
+								<li><a href="?3.0.1.1">Item 3.0.1.1</a></li>
+							</ul>
+						</li>
+						<li><a href="?3.0.2">Item 3.0.2</a>
+							<ul>
+								<li><a href="?3.0.2.0">Item 3.0.2.0</a></li>
+								<li><a href="?3.0.2.1">Item 3.0.2.1</a></li>
+								<li><a href="?3.0.2.2">Item 3.0.2.2</a></li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</li>
+	</ul>
+	
+	<h4>Sample 3 - fast animations, all branches collapsed at first, red theme, cookie-based persistance</h4>
+	<ul id="red" class="treeview-red">
+	<li><span>Item 1</span>
+		<ul>
+			<li><span>Item 1.0</span>
+				<ul>
+					<li><span>Item 1.0.0</span></li>
+				</ul>
+			</li>
+			<li><span>Item 1.1</span></li>
+			<li><span>Item 1.2</span>
+				<ul>
+					<li><span>Item 1.2.0</span>
+					<ul>
+						<li><span>Item 1.2.0.0</span></li>
+						<li><span>Item 1.2.0.1</span></li>
+						<li><span>Item 1.2.0.2</span></li>
+					</ul>
+				</li>
+					<li><span>Item 1.2.1</span>
+					<ul>
+						<li><span>Item 1.2.1.0</span></li>
+					</ul>
+				</li>
+					<li><span>Item 1.2.2</span>
+					<ul>
+						<li><span>Item 1.2.2.0</span></li>
+						<li><span>Item 1.2.2.1</span></li>
+						<li><span>Item 1.2.2.2</span></li>
+					</ul>
+				</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+	<li><span>Item 2</span>
+		<ul>
+			<li><span>Item 2.0</span>
+				<ul>
+					<li><span>Item 2.0.0</span>
+					<ul>
+						<li><span>Item 2.0.0.0</span></li>
+						<li><span>Item 2.0.0.1</span></li>
+					</ul>
+				</li>
+				</ul>
+			</li>
+			<li><span>Item 2.1</span>
+				<ul>
+					<li><span>Item 2.1.0</span>
+					<ul>
+						<li><span>Item 2.1.0.0</span></li>
+					</ul>
+				</li>
+					<li><span>Item 2.1.1</span>
+					<ul>
+						<li><span>Item 2.1.1.0</span></li>
+						<li><span>Item 2.1.1.1</span></li>
+						<li><span>Item 2.1.1.2</span></li>
+					</ul>
+				</li>
+					<li><span>Item 2.1.2</span>
+					<ul>
+						<li><span>Item 2.1.2.0</span></li>
+						<li><span>Item 2.1.2.1</span></li>
+						<li><span>Item 2.1.2.2</span></li>
+					</ul>
+				</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+	<li class="open"><span>Item 3</span>
+		<ul>
+			<li class="open"><span>Item 3.0</span>
+				<ul>
+					<li><span>Item 3.0.0</span></li>
+					<li><span>Item 3.0.1</span>
+					<ul>
+						<li><span>Item 3.0.1.0</span></li>
+						<li><span>Item 3.0.1.1</span></li>
+					</ul>
+					
+				</li>
+					<li><span>Item 3.0.2</span>
+					<ul>
+						<li><span>Item 3.0.2.0</span></li>
+						<li><span>Item 3.0.2.1</span></li>
+						<li><span>Item 3.0.2.2</span></li>
+					</ul>
+				</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+	</ul>
+	
+	<h4>Sample 4 - two trees with one tree control, black and gray theme, cookie-based persistance</h4>
+	<div id="treecontrol">
+		<a title="Collapse the entire tree below" href="#"><img src="../images/minus.gif" /> Collapse All</a>
+		<a title="Expand the entire tree below" href="#"><img src="../images/plus.gif" /> Expand All</a>
+		<a title="Toggle the tree below, opening closed branches, closing open branches" href="#">Toggle All</a>
+	</div>
+	<ul id="black" class="treeview-black">
+		<li>Item 1</li>
+		<li>
+			<span>Item 2</span>
+			<ul>
+				<li>
+					<span>Item 2.1</span>
+					<ul>
+						<li>Item 2.1.1</li>
+						<li>Item 2.1.2</li>
+					</ul>
+				</li>
+				<li>Item 2.2</li>
+				<li class="closed">
+					<span>Item 2.3 (closed at start)</span>
+					<ul>
+						<li>Item 2.3.1</li>
+						<li>Item 2.3.2</li>
+					</ul>
+				</li>
+			</ul>
+		</li>
+	</ul>
+	<ul id="gray" class="treeview-gray">
+		<li>Item 1</li>
+		<li>
+			<span>Item 2</span>
+			<ul>
+				<li class="closed">
+					<span>Item 2.1 (closed at start)</span>
+					<ul>
+						<li>Item 2.1.1</li>
+						<li>Item 2.1.2</li>
+					</ul>
+				</li>
+				<li>Item 2.2.1</li>
+				<li>Item 2.2.2</li>
+				<li>Item 2.2.3</li>
+				<li>Item 2.2.4</li>
+				<li>Item 2.2.5</li>
+				<li>Item 2.2.6</li>
+				<li>Item 2.2.7</li>
+				<li>Item 2.2.8</li>
+				<li>
+					<span>Item 2.3</span>
+					<ul>
+						<li>Item 2.3.1</li>
+						<li>Item 2.3.2</li>
+						<li>Item 2.3.3</li>
+						<li>Item 2.3.4</li>
+						<li>Item 2.3.5</li>
+						<li>Item 2.3.6</li>
+						<li>Item 2.3.7</li>
+						<li>Item 2.3.8</li>
+						<li>Item 2.3.9</li>
+					</ul>
+				</li>
+				<li>
+					<span>Item 2.4</span>
+					<ul>
+						<li>Item 2.4.1</li>
+						<li>Item 2.4.2</li>
+						<li>Item 2.4.3</li>
+						<li>Item 2.4.4</li>
+						<li>Item 2.4.5</li>
+						<li>Item 2.4.6</li>
+						<li>Item 2.4.7</li>
+						<li>Item 2.4.8</li>
+						<li>Item 2.4.9</li>
+					</ul>
+				</li>
+			</ul>
+		</li>
+		<li>Item 3</li>
+	</ul>	
+	
+</div>
+
+
+<form method="post" action="http://tinymce.moxiecode.com/dump.php?example=true">
+	<div>
+		<h3 id="tith3">Full featured example</h3>
+
+		<p>
+			This page shows all available buttons and plugins that are included in the TinyMCE core package.
+			There are more examples on how to use TinyMCE in the <a href="http://tinymce.moxiecode.com/examples/">Wiki</a>.
+		</p>
+
+		<!-- Gets replaced with TinyMCE, remember HTML in a textarea should be encoded -->
+		<div>
+			<textarea id="elm1" class="mceEditor" name="elm1" rows="15" cols="80" style="width: 80%">
+				&lt;p&gt;
+					This is some example text that you can edit inside the &lt;strong&gt;TinyMCE editor&lt;/strong&gt;.
+				&lt;/p&gt;
+				&lt;p&gt;
+				Nam nisi elit, cursus in rhoncus sit amet, pulvinar laoreet leo. Nam sed lectus quam, ut sagittis tellus. Quisque dignissim mauris a augue rutrum tempor. Donec vitae purus nec massa vestibulum ornare sit amet id tellus. Nunc quam mauris, fermentum nec lacinia eget, sollicitudin nec ante. Aliquam molestie volutpat dapibus. Nunc interdum viverra sodales. Morbi laoreet pulvinar gravida. Quisque ut turpis sagittis nunc accumsan vehicula. Duis elementum congue ultrices. Cras faucibus feugiat arcu quis lacinia. In hac habitasse platea dictumst. Pellentesque fermentum magna sit amet tellus varius ullamcorper. Vestibulum at urna augue, eget varius neque. Fusce facilisis venenatis dapibus. Integer non sem at arcu euismod tempor nec sed nisl. Morbi ultricies, mauris ut ultricies adipiscing, felis odio condimentum massa, et luctus est nunc nec eros.
+				&lt;/p&gt;
+			</textarea>
+		</div>
+
+		<!-- Some integration calls -->
+		<a href="javascript:;" onclick="tinyMCE.get('elm1').show();return false;">[Show]</a>
+		<a href="javascript:;" onclick="tinyMCE.get('elm1').hide();return false;">[Hide]</a>
+		<a href="javascript:;" onclick="tinyMCE.get('elm1').execCommand('Bold');return false;">[Bold]</a>
+		<a href="javascript:;" onclick="alert(tinyMCE.get('elm1').getContent());return false;">[Get contents]</a>
+		<a href="javascript:;" onclick="alert(tinyMCE.get('elm1').selection.getContent());return false;">[Get selected HTML]</a>
+		<a href="javascript:;" onclick="alert(tinyMCE.get('elm1').selection.getContent({format : 'text'}));return false;">[Get selected text]</a>
+		<a href="javascript:;" onclick="alert(tinyMCE.get('elm1').selection.getNode().nodeName);return false;">[Get selected element]</a>
+		<a href="javascript:;" onclick="tinyMCE.execCommand('mceInsertContent',false,'<b>Hello world!!</b>');return false;">[Insert HTML]</a>
+		<a href="javascript:;" onclick="tinyMCE.execCommand('mceReplaceContent',false,'<b>{$selection}</b>');return false;">[Replace selection]</a>
+
+		<br />
+		<input type="submit" name="save" value="Submit" />
+		<input type="reset" name="reset" value="Reset" />
+	</div>
+</form>
+
+</body>
+</html>

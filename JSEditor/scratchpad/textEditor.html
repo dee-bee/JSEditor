@@ -1,0 +1,182 @@
+<html>
+<script type="text/javascript" src="js/jquery-1.7.2.js"></script>
+<script type="text/javascript" src="js/jquery.highlight-3.js"></script>
+<script type="text/javascript" src="js/ajaxslt-read-only/util.js"></script>
+<script type="text/javascript" src="js/ajaxslt-read-only/xmltoken.js"></script>
+<script type="text/javascript" src="js/ajaxslt-read-only/dom.js"></script>
+<script type="text/javascript" src="js/ajaxslt-read-only/xpath.js"></script>
+<script type="text/javascript" src="js/ajaxslt-read-only/xslt.js"></script>
+<script type="text/javascript" src="js/jzaefferer-jquery-treeview-3937863/jquery.treeview.js"></script>
+<script type="text/javascript" src="js/jzaefferer-jquery-treeview-3937863/lib/jquery.cookie.js"></script>
+<script type="text/javascript" src="js/jzaefferer-jquery-treeview-3937863/demo/demo.js"></script>
+<script type="text/javascript" src="js/jquery_ui/js/jquery-ui-1.8.20.custom.min.js"></script>
+<script type="text/javascript" src="js/tiny_mce/tiny_mce.js"></script>
+<script type="text/javascript" src="js/tiny_mce/jquery.highlight-3.js"></script>
+
+
+<script type="text/javascript" src="js/my_library.js"></script>
+
+<link rel="stylesheet" href="js/jzaefferer-jquery-treeview-3937863/jquery.treeview.css" type="text/css" media="screen" />
+
+		<style type="text/css">
+			/*demo page css*/
+			body{ font: 62.5% "Trebuchet MS", sans-serif; margin: 50px;}
+			.demoHeaders { margin-top: 2em; }
+			#dialog_link {padding: .4em 1em .4em 20px;text-decoration: none;position: relative;}
+			#dialog_link span.ui-icon {margin: 0 5px 0 0;position: absolute;left: .2em;top: 50%;margin-top: -8px;}
+			ul#icons {margin: 0; padding: 0;}
+			ul#icons li {margin: 2px; position: relative; padding: 4px 0; cursor: pointer; float: left;  list-style: none;}
+			ul#icons span.ui-icon {float: left; margin: 0 4px;}
+		</style>
+
+<script type="text/javascript" language="javascript">// <![CDATA[
+function save() {
+	try {
+		netscape.security.PrivilegeManager.enablePrivilege("UniversalXPConnect");
+	} catch (e) {
+		alert("Permission to save file was denied.");
+	}
+	var file = Components.classes["@mozilla.org/file/local;1"]
+		.createInstance(Components.interfaces.nsILocalFile);
+	file.initWithPath( document.getElementById('filename').value );
+	if ( file.exists() == false ) {
+		alert( "Creating file... " );
+		file.create( Components.interfaces.nsIFile.NORMAL_FILE_TYPE, 420 );
+	}
+	var outputStream = Components.classes["@mozilla.org/network/file-output-stream;1"]
+		.createInstance( Components.interfaces.nsIFileOutputStream );
+
+	outputStream.init( file, 0x04 | 0x08 | 0x20, 420, 0 );
+	var output = document.getElementById('buffer').value;
+	//var output = tinyMCE.get("elm1").getContent();	
+	var result = outputStream.write( output, output.length );
+	outputStream.close();
+
+}
+function read() {
+	try {
+		netscape.security.PrivilegeManager.enablePrivilege("UniversalXPConnect");
+	} catch (e) {
+		alert("Permission to read file was denied.");
+	}
+	var file = Components.classes["@mozilla.org/file/local;1"]
+		.createInstance(Components.interfaces.nsILocalFile);
+	file.initWithPath( document.getElementById('filename').value );
+	if ( file.exists() == false ) {
+		alert("File does not exist");
+	}
+	var is = Components.classes["@mozilla.org/network/file-input-stream;1"]
+		.createInstance( Components.interfaces.nsIFileInputStream );
+	is.init( file,0x01, 00004, null);
+	var sis = Components.classes["@mozilla.org/scriptableinputstream;1"]
+		.createInstance( Components.interfaces.nsIScriptableInputStream );
+	sis.init( is );
+	var output = sis.read( sis.available() );
+	document.getElementById('buffer').value = output;
+	//tinyMCE.get("elm1").setContent(output)
+	document.title = "Testing";
+}
+
+
+
+
+
+tinyMCE.init({
+		// General options
+		mode : "specific_textareas",
+		theme : "advanced",
+		editor_selector : "mceEditor",
+		plugins : "autolink,lists,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template,wordcount,advlist,autosave,visualblocks",
+
+		// Theme options
+		theme_advanced_buttons1 : "save,newdocument,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,styleselect,formatselect,fontselect,fontsizeselect",
+		theme_advanced_buttons2 : "cut,copy,paste,pastetext,pasteword,|,search,replace,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,link,unlink,anchor,image,cleanup,help,code,|,insertdate,inserttime,preview,|,forecolor,backcolor",
+		theme_advanced_buttons3 : "tablecontrols,|,hr,removeformat,visualaid,|,sub,sup,|,charmap,emotions,iespell,media,advhr,|,print,|,ltr,rtl,|,fullscreen",
+		theme_advanced_buttons4 : "insertlayer,moveforward,movebackward,absolute,|,styleprops,|,cite,abbr,acronym,del,ins,attribs,|,visualchars,nonbreaking,template,pagebreak,restoredraft,visualblocks",
+		theme_advanced_toolbar_location : "top",
+		theme_advanced_toolbar_align : "left",
+		theme_advanced_statusbar_location : "bottom",
+		theme_advanced_resizing : true,
+
+		// Example content CSS (should be your site CSS)
+		content_css : "css/content.css",
+
+		// Drop lists for link/image/media/template dialogs
+		template_external_list_url : "lists/template_list.js",
+		external_link_list_url : "lists/link_list.js",
+		external_image_list_url : "lists/image_list.js",
+		media_external_list_url : "lists/media_list.js",
+
+		// Style formats
+		style_formats : [
+			{title : 'Bold text', inline : 'b'},
+			{title : 'Red text', inline : 'span', styles : {color : '#ff0000'}},
+			{title : 'Red header', block : 'h1', styles : {color : '#ff0000'}},
+			{title : 'Example 1', inline : 'span', classes : 'example1'},
+			{title : 'Example 2', inline : 'span', classes : 'example2'},
+			{title : 'Table styles'},
+			{title : 'Table row 1', selector : 'tr', classes : 'tablerow1'}
+		],
+
+		// Replace values for the template plugin
+		template_replace_values : {
+			username : "Some User",
+			staffid : "991234"
+		}
+	});
+
+function copyToBuffer(){
+	document.getElementById('buffer').value = tinyMCE.get("elm1").getContent();	
+}
+
+function copyToTiny(){
+	tinyMCE.get("elm1").setContent(document.getElementById('buffer').value);	
+}
+// ]]></script>
+<p><strong>File Name:</strong> <br /> <input id="filename" type="text" /> <br /> <textarea id="buffer"></textarea> <br /> <input onclick="save()" type="button" value="Save" /> <input onclick="read()" type="button" value="Load" /> <input onclick="copyToBuffer()" type="button" value="Copy to save buffer" /> <input onclick="copyToTiny()" type="button" value="Copy to Tiny" /></p>
+
+<form action="http://tinymce.moxiecode.com/dump.php?example=true" method="post">
+<div>
+<h3 id="tith3">Dan Full featured example</h3>
+<p>This page shows all available buttons and plugins that are included in the TinyMCE core package. There are more examples on how to use TinyMCE in the <a href="http://tinymce.moxiecode.com/examples/">Wiki</a>.</p>
+<!-- Gets replaced with TinyMCE, remember HTML in a textarea should be encoded -->
+<div><textarea id="elm1" class="mceEditor" style="width: 80%;" name="elm1" rows="15" cols="80">			</textarea></div>
+<!-- Some integration calls --> <a onclick="tinyMCE.get('elm1').show();return false;" href="javascript:;">[Show]</a> <a onclick="tinyMCE.get('elm1').hide();return false;" href="javascript:;">[Hide]</a> <a onclick="tinyMCE.get('elm1').execCommand('Bold');return false;" href="javascript:;">[Bold]</a> <a onclick="alert(tinyMCE.get('elm1').getContent());return false;" href="javascript:;">[Get contents]</a> <a onclick="alert(tinyMCE.get('elm1').selection.getContent());return false;" href="javascript:;">[Get selected HTML]</a> <a onclick="alert(tinyMCE.get('elm1').selection.getContent({format : 'text'}));return false;" href="javascript:;">[Get selected text]</a> <a onclick="alert(tinyMCE.get('elm1').selection.getNode().nodeName);return false;" href="javascript:;">[Get selected element]</a> <a onclick="tinyMCE.execCommand('mceInsertContent',false,'&lt;b&gt;Hello world!!&lt;/b&gt;');return false;" href="javascript:;">[Insert HTML]</a> <a onclick="tinyMCE.execCommand('mceReplaceContent',false,'&lt;b&gt;{$selection}&lt;/b&gt;');return false;" href="javascript:;">[Replace selection]</a> <br /> <input type="submit" name="save" value="Submit" /> <input type="reset" name="reset" value="Reset" /></div>
+</form>
+
+<ul id="browser" class="filetree">
+		<li><span class="folder">Folder 1</span>
+			<ul>
+				<li><span class="file">Item 1.1</span></li>
+			</ul>
+		</li>
+		<li><span class="folder">Folder 2</span>
+			<ul>
+				<li><span class="folder">Subfolder 2.1</span>
+					<ul id="folder21">
+						<li><span class="file">File 2.1.1</span></li>
+						<li><span class="file">File 2.1.2</span></li>
+					</ul>
+				</li>
+				<li><span class="file">File 2.2</span></li>
+			</ul>
+		</li>
+		<li class="closed"><span class="folder">Folder 3 (closed at start)</span>
+			<ul>
+				<li><span class="file">File 3.1</span></li>
+			</ul>
+		</li>
+		<li><span class="file">File 4</span></li>
+	</ul>
+	
+	<div id="tabs">
+			<ul>
+				<li><a href="#tabs-1">First</a></li>
+				<li><a href="#tabs-2">Second</a></li>
+				<li><a href="#tabs-3">Third</a></li>
+			</ul>
+			<div id="tabs-1">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+			<div id="tabs-2">Phasellus mattis tincidunt nibh. Cras orci urna, blandit id, pretium vel, aliquet ornare, felis. Maecenas scelerisque sem non nisl. Fusce sed lorem in enim dictum bibendum.</div>
+			<div id="tabs-3">Nam dui erat, auctor a, dignissim quis, sollicitudin eu, felis. Pellentesque nisi urna, interdum eget, sagittis et, consequat vestibulum, lacus. Mauris porttitor ullamcorper augue.</div>
+		</div>
+	</html>

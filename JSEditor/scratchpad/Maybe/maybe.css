@@ -1,0 +1,20 @@
+svg{
+	
+}
+
+#maybeTitle{
+	-webkit-user-select: none;
+	cursor: default;
+	-webkit-transition: font-size 20s, opacity 5s;
+	/*font-family: 'Spicy Rice', cursive;*/
+}
+
+.maybeTitleBigger{
+	font-size: 950px;
+	/* opacity: 0; */
+}
+
+body .maybeTitleSmaller{
+	font-size:0px;
+	opacity: 1;
+}

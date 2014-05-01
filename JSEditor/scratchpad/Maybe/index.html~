@@ -1,0 +1,26 @@
+<html>
+	<head>
+		<link rel="stylesheet" href="maybe.css" />
+		<script src="../../js/jquery-1.7.2.js"></script>
+		<script src="../../js/jquery.ui.touch-punch.js"></script>
+		<script src="maybe.js"></script>
+	</head>
+	<body 
+			onmousedown='maybeTitleSmaller()'
+			ontouchstart='maybeTitleSmaller()' 
+			ontouchend='maybeTitleBigger()'>
+		<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100" version="1.1">
+			<defs>
+				<path id="s3" d="m 42.857143,55.219326 c 1.862284,1.289274 -0.81913,3.146403 -2.142858,3.095237 -3.58722,-0.138655 -4.944508,-4.454366 -4.047616,-7.380953 1.604329,-5.234978 7.927746,-6.963793 12.619049,-4.999996 6.884677,2.88195 9.032061,11.444319 5.952375,17.857145 -4.104737,8.547288 -14.97571,11.12055 -23.095241,6.904754 C 21.925252,65.390365 18.923487,52.181475 24.285719,42.362177 30.7801,30.469691 46.341968,27.038041 57.857151,33.552664 71.427396,41.229922 75.289792,59.153539 67.619043,72.362192 58.762859,87.612104 38.471928,91.905831 23.571419,83.076463 6.6405144,73.043974 1.9150389,50.381975 11.904769,33.790744 23.111736,15.17789 48.147459,10.020355 66.428584,21.171714 86.724098,33.551837 92.313931,60.963229 79.999993,80.933625" />
+			</defs>
+			<g fill="navy">
+				<text id="maybeTitle" class="maybeTitleBigger" >
+					<textPath xlink:href="#s3">
+						Maybe
+					</textPath>
+				</text>
+				<use x="0" y="0" xlink:href="#s3" stroke="black" fill="none" style=""/>
+			</g>
+		</svg>
+	</body>
+</html>

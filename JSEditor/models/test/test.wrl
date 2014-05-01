@@ -1,0 +1,21 @@
+#VRML V2.0 utf8
+#modeled using blender3d http://blender.org
+
+# 'Cube'
+Shape {
+	appearance Appearance {
+		material Material {
+		}
+	}
+	geometry IndexedFaceSet {
+		coord Coordinate {
+			point [ -3.161479 -0.704800 -4.073213 -3.161479 -0.704800 -6.073213 -1.161479 -0.704800 -6.073213 -1.161480 -0.704800 -4.073213 -4.665565 1.295200 -0.393404 -3.161479 1.295200 -6.073214 -1.161479 1.295200 -6.073213 -1.161479 1.295200 -4.073213 ]
+		}
+		colorPerVertex FALSE
+		color Color {
+			color [ 0.64 0.64 0.64 ]
+		}
+		colorIndex [ 0 0 0 0 0 0 0 0 0 0 0 0 ]
+		coordIndex [ 0 1 3 -1 4 7 5 -1 0 4 1 -1 1 5 2 -1 2 6 3 -1 4 0 7 -1 1 2 3 -1 7 6 5 -1 4 5 1 -1 5 6 2 -1 6 7 3 -1 0 3 7 -1 ]
+	}
+}

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+.progress-meter .background {
+  fill: #ccc;
+}
+
+.progress-meter .foreground {
+  fill: #000;
+}
+
+.progress-meter text {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+</style>
+<body>
+<script src="js/d3.v3.min.js"></script>
+<script src="js/jquery-1.7.2.js"></script>
+<script>
+
+var meter;
+var foreground;
+var text;
+var arc;
+
+
+var width = 960,
+    height = 500,
+    twoPi = 2 * Math.PI,
+    progress = 0,
+    total = 1308573, // must be hard-coded if server doesn't report Content-Length
+    formatPercent = d3.format(".0%");
+
+function test() {
+	
+
+
+arc = d3.svg.arc()
+    .startAngle(0)
+    .innerRadius(180)
+    .outerRadius(240);
+
+/*var svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height)
+  .append("g")
+    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");*/
+
+
+/*var svg = d3.select("svg");
+var meter = svg.append("g")
+    .attr("class", "progress-meter");*/
+
+meter = d3.select(".progress-meter");
+foreground = d3.select(".foreground");
+text = d3.select("#textId");
+
+
+meter.transition().delay(0).attr("transform", "scale(1)");
+
+/*meter.append("path")
+    .attr("class", "background")
+    .attr("d", arc.endAngle(twoPi));
+
+var foreground = meter.append("path")
+    .attr("class", "foreground");
+
+var text = meter.append("text")
+    .attr("text-anchor", "middle")
+    .attr("dy", ".35em");*/
+
+d3.json("https://api.github.com/repos/mbostock/d3/git/blobs/2e0e3b6305fa10c1a89d1dfd6478b1fe7bc19c1e?" + Math.random())
+    .on("progress", function() {
+      var i = d3.interpolate(progress, d3.event.loaded / total);
+      //progress = d3.event.loaded / total;
+      d3.transition().tween("progressz", function() {
+        return function(t) {
+          progress = i(t);
+          foreground.attr("d", arc.endAngle(twoPi * progress));
+          //foreground.attr("d", arc.endAngle(twoPi * (d3.event.loaded / total)));
+          
+          text.text(formatPercent(progress));
+        };
+      });
+    })
+    .get(function(error, data) {
+      meter.transition().delay(250).attr("transform", "scale(0)");
+    });
+
+}
+
+
+</script>
+
+<svg width="960" height="500">
+    <g transform="translate(480,250)">
+        <g class="progress-meter" transform="scale(1,1)">
+            <path class="background"
+                d="M0,240A240,240 0 1,1 0,-240A240,240 0 1,1 0,240M0,180A180,180 0 1,0 0,-180A180,180 0 1,0 0,180Z">
+            </path>
+            <path class="foreground"
+                d="M0,240A240,240 0 1,1 0,-240A240,240 0 1,1 0,240M0,180A180,180 0 1,0 0,-180A180,180 0 1,0 0,180Z">
+            </path>
+            <text text-anchor="middle" dy=".35em">100%</text>
+        </g>
+    </g>
+</svg>
+
+
+<!--<svg width="960" height="500">
+    <g transform="translate(480,250)">
+        <g class="progress-meter" transform="scale(0,0)">
+            <path class="background"
+                d="M0,240A240,240 0 1,1 0,-240A240,240 0 1,1 0,240M0,180A180,180 0 1,0 0,-180A180,180 0 1,0 0,180Z"></path>
+            <path class="foreground"
+                d="M0,240A240,240 0 1,1 0,-240A240,240 0 1,1 0,240M0,180A180,180 0 1,0 0,-180A180,180 0 1,0 0,180Z"></path>
+            <text id="textId" text-anchor="middle" dy=".35em">100%</text>
+        </g>
+    </g>
+</svg>-->
+
+
+
+</body>

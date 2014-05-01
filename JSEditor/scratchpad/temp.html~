@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+var clickedT = false
+function clicked(v){
+     if(clickedT){
+          clickedT = false
+          v.setAttribute( "class", "" )
+     }else{
+          clickedT = true
+          v.setAttribute( "class", "smaller bigger" )
+     }
+}
+</script>
+<style> 
+div{
+background:red;
+width:initial;
+height: initial;
+}
+
+.smaller
+{
+width:100px;
+height:100px;
+background:red;
+/* For Safari 3.1 to 6.0 */
+-webkit-transition-property:width;
+-webkit-transition-duration:2s;
+-webkit-transition-timing-function:linear;
+-webkit-transition-delay:0s;
+/* Standard syntax */
+transition-property:width;
+transition-duration:2s;
+transition-timing-function:linear;
+transition-delay:0s;
+}
+
+.bigger
+{
+width:500px;
+height:200px;
+-webkit-transition-property:height;
+-webkit-transition-duration:2s;
+-webkit-transition-timing-function:linear;
+-webkit-transition-delay:2s;
+}
+</style>
+</head>
+<body>
+
+<p><b>Note:</b> This example does not work in Internet Explorer 9 and earlier versions.</p>
+
+<div class="smaller" onclick="clicked(this)"></div>
+
+<p>Hover over the div element above, to see the transition effect.</p>
+<p><b>Note:</b> The transition effect will wait 2 seconds before starting.</p>
+
+</body>
+</html>
+

@@ -1,0 +1,14 @@
+body{
+	overflow: hidden;
+	-webkit-user-select: none;
+}
+
+svg{
+	background-color: green;
+	width: 500px;
+	height: 500px;
+}
+
+#layer1 {
+	-webkit-transform-origin: 191px 317px;
+}
