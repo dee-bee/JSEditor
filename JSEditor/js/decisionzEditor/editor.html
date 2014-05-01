@@ -1,0 +1,40 @@
+<html>
+    <body>
+    	<link type="text/css" href="js/decisionzEditor/editor.css" rel="stylesheet" />
+    	
+		<!--<ul id="browser" class="filetree"></ul>-->
+		<div id="sceneListDialog">
+			<h3>Scene List</h3>
+			<h4 onclick='handleXml((new window.DOMParser()).parseFromString(localStorage.decisionz, "text/xml"))'>
+				Load Scene List
+			</h4>
+			<ul id="sceneList" ></ul>
+		</div>
+		<div id="sceneDataDialog">
+			<div id="sceneData">
+				<h3>Scene Data</h3>
+				<div id="pageDiagramBtn" onmousedown="diagramScenePages()">Diagram Pages.</div>
+				<br />
+				<div id="sceneName"></div>
+				<ul id="pageList"></ul>
+			</div>
+		</div>
+		<div id="pageDataDialog">
+			<div id="pageData">
+				<h3>Page Data</h3>
+				<div id="pageId"></div>
+				<div id="pageContents"></div>
+			</div>
+		</div>
+		<div id="jointDialog">
+			<div id="jointData">
+				<h3>Joint Data</h3>
+				<div id="saveDiagramBtn" onmousedown="saveDiagram()">Save Diagram Offsets.</div>
+				<div id="jointId"></div>
+				<div id="jointContents"></div>
+			</div>
+		</div>
+		
+		<script src="js/decisionzEditor/editor.js" type="text/javascript"></script>
+	</body>
+</html>
