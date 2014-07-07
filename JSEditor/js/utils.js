@@ -80,6 +80,8 @@ function stripNamespace(fileText){
 	return fileText.replace(/<(\/?)([^:>\s]*:)?([^>]+)>/g, "<$1$3>")
 }
 
+var params = getParams(window.location.href);
+
 function getParams(url, ignoreArray) {
 	if(typeof ignoreArray === 'undefined' ){
 		ignoreArray = [];

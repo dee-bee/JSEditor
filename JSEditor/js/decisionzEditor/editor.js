@@ -1,17 +1,27 @@
-//# sourceURL=editor.js
 
-$(document).ready(function(){
+function initEditor(){
 	var dialogInit = { height: 200, width: 300, position:[0,0] };
 	
 	$("#sceneListDialog").dialog(dialogInit)
+			.dialog("widget").draggable("option","containment","none")
 	dialogInit.position[0] += 300
 	$("#sceneDataDialog").dialog(dialogInit)
+			.dialog("widget").draggable("option","containment","none")
 	dialogInit.position[0] += 300
 	$("#pageDataDialog").dialog(dialogInit)
+			.dialog("widget").draggable("option","containment","none")
 
-	$("#jointDialog").dialog({ height: 400, width: 900, position:[0,300] });
 	
-});
+
+	$("#sceneXMLEditorDialog")
+		.dialog({ height: 1000, width: 900, position:[0,300] })
+		.dialog("widget").draggable("option","containment","none")
+	$("#pageXMLEditorDialog")
+		.dialog({ height: 1000, width: 900, position:[0,300] })
+		.dialog("widget").draggable("option","containment","none")
+	$("#jointDialog").dialog({ height: 400, width: 900, position:[0,300] })
+		.dialog("widget").draggable("option","containment","none")
+}
 
 var xml;
 
@@ -51,6 +61,36 @@ function sceneClicked(value){
 								+ $(this).attr("id")
 								+ "</span></li>");
 	});
+	
+	$("#sceneXML").empty().append($("<textarea id='sceneXmlEditor'></textarea>"))
+	$("#sceneXmlEditor").text(new XMLSerializer().serializeToString(currentScene[0]))
+	
+	//loadSceneEditor()
+}
+
+function saveSceneXML(){
+	var currentSceneIndex = $(currentScene).index()
+	$($(xml).find("config > scenes > scene")[currentSceneIndex]).remove()
+
+	var re = new RegExp('xmlns="http://www.w3.org/1999/xhtml"',"g")
+
+	var jSceneXml = $($("#sceneXmlEditor").val().replace(re, ""))
+
+	var numberOfScenes = $(xml).find("config > scenes > scene").length
+
+	if(currentSceneIndex == numberOfScenes){
+		$(xml).find("config > scenes > scene").append(jSceneXml)
+	}else{
+		$($(xml).find("config > scenes > scene")[currentSceneIndex]).before(jSceneXml)
+	}
+	
+	var config_xml_string = new XMLSerializer().serializeToString(xml)
+	
+	localStorage.decisionz = config_xml_string
+	
+	if(config_xml_string.length != localStorage.decisionz.length){
+		alert("LocalStorage was not completeley stored")
+	}
 }
 
 function pageClicked(value){
@@ -175,14 +215,14 @@ function recursiveLinkPages(thePageName){
 	//Find the nextPage indexes
 	var nextPageNames = new Array();
 	
-	var nextPageName = $(thePage).attr("nextPage");
+	var nextPageName = $(thePage).attr("nextpage");
 	if(nextPageName != undefined){
 		nextPageNames.push(nextPageName);
 	}
 	
 	//Find the decision and pageCondition nextPages
-	$(thePage).find("[nextPage]").each(function(index, value){
-		nextPageNames.push($(value).attr("nextPage"));
+	$(thePage).find("[nextpage]").each(function(index, value){
+		nextPageNames.push($(value).attr("nextpage"));
 	});
 	
 	
@@ -220,5 +260,17 @@ function saveDiagram(){
 		
 		$(pageNode).attr("dx", state.wrapper.attrs.x);
 		$(pageNode).attr("dy", state.wrapper.attrs.y);
+	});
+}
+
+function loadSceneEditor() {
+	//var extractor = new Xsd2Json("ATOM.xsd", {"schemaURI":"js/jquery.xmleditor-master/demo/examples/atom/"});
+	//var extractor = new Xsd2Json("decisionz.xsd", {"schemaURI":"assets/configs/"});
+	var extractor = new Xsd2Json("decisionzScene.xsd", {
+		"schemaURI" : "assets/"
+	});
+	$("#sceneXmlEditor").xmlEditor({
+		schema : extractor.getSchema()
+	//,enableDocumentStatusPanel : false
 	});
 }
