@@ -14,15 +14,8 @@ function getConfigXml(){
 var scaleTimelineFactor = 1500000
 
 
-
 function generateTimelineTable(){
-	if($("#timelineDialog").length == 0){
-		$("body").append("<div id='timelineDialog'></div>")
-	
-		$("#timelineDialog").dialog( { height: 200, width: 300, position:[0,0] })
-			.dialog("widget").draggable("option","containment","none")
-	}
-	
+	loadDialog("timelineDialog", 500, 900,[0,0])
 	
     $("#timelineDialog").empty()
     
@@ -82,6 +75,8 @@ function generateTimelineTable(){
         if(pgName == undefined){
             pgName = jPagecondition.attr("location")
         }
+
+		pgName = jScene.attr("name") + ":" + pgName
 
         generateTimelineRow(pgName + "   " + $(v).attr("startTime") + " - " + 
 					$(v).attr("endTime"), [startTimeWidth, endTimeWidth])

@@ -1,26 +1,21 @@
 
+
 function initEditor(){
-	var dialogInit = { height: 200, width: 300, position:[0,0] };
-	
-	$("#sceneListDialog").dialog(dialogInit)
-			.dialog("widget").draggable("option","containment","none")
-	dialogInit.position[0] += 300
-	$("#sceneDataDialog").dialog(dialogInit)
-			.dialog("widget").draggable("option","containment","none")
-	dialogInit.position[0] += 300
-	$("#pageDataDialog").dialog(dialogInit)
-			.dialog("widget").draggable("option","containment","none")
+	loadDialog("sceneListDialog", 200, 300, [0,0])
+}
 
+var jElement
+function loadDialog(id, height, width,position){
+	var dialogSelector = ".ui-dialog #" + id
+	if($(dialogSelector).length == 0){
+		jElement = $($(window.frames[0].document).find("#" + id + "_snippet").clone().outerHTML())
+		jElement.attr("id", id)
+		$("#main").append(jElement)
+		dialogSelector = "#main > #" + id
+	}
 	
-
-	$("#sceneXMLEditorDialog")
-		.dialog({ height: 1000, width: 900, position:[0,300] })
-		.dialog("widget").draggable("option","containment","none")
-	$("#pageXMLEditorDialog")
-		.dialog({ height: 1000, width: 900, position:[0,300] })
-		.dialog("widget").draggable("option","containment","none")
-	$("#jointDialog").dialog({ height: 400, width: 900, position:[0,300] })
-		.dialog("widget").draggable("option","containment","none")
+	$(dialogSelector).dialog({ height: height, width: width, position:position })
+			.dialog("widget").draggable("option","containment","none")	
 }
 
 var xml;
@@ -47,6 +42,10 @@ var currentScene = null;
 var currentPage = null;
 
 function sceneClicked(value){
+	loadDialog("sceneDataDialog", 200, 300,[300,0])
+
+	loadDialog("sceneXMLEditorDialog", 200, 800,[0,200])
+		
 	var sceneName = $(value).find("> span").html();
 	currentScene = $(xml).find("scene[name='" + sceneName + "']");
 	
@@ -94,6 +93,11 @@ function saveSceneXML(){
 }
 
 function pageClicked(value){
+	loadDialog("pageDataDialog", 200, 300,[600,0])
+	
+	loadDialog("pageXMLEditorDialog", 200, 800,[0,200])
+	
+	
 	var pageId = $(value).find("> span").html();
 	var currentPage = $(currentScene).find("page[id='" + pageId + "']");
 	
@@ -117,7 +121,9 @@ var states = new Array();
 var uml = Joint.dia.uml;
 
 function diagramScenePages(){
-	states = new Array();
+	loadDialog("jointDialog", 400, 900,[0,300])
+	
+	states = new Array(); 
 	pageDiagramNodes = new Array();
 	parentList = new Array();
 	
