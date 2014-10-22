@@ -1,0 +1,54 @@
+<html>
+    <body>
+        <div id="snippets">
+            <div id="jointDialog_snippet">
+                <div id="jointData">
+                    <h3>Joint Data</h3>
+                    <div id="saveDiagramBtn" onmousedown="saveDiagram()">Save Diagram Offsets.</div>
+                    <div id="jointId"></div>
+                    <div id="jointContents"></div>
+                </div>
+            </div>
+            <div id="pageDataDialog_snippet">
+                <div id="pageData">
+                    <h3>Page Data</h3>
+                    <div id="pageId"></div>
+                    <div>Duration</div><input type="text" id="pageDuration" onchange="pageDurationChanged()"><br>
+                    <div>Checkpoint</div><input type="text" id="pageCheckpoint" onchange="pageCheckpointChanged()"><br>
+                    <div id="pageContents">
+                    </div>
+                </div>
+            </div>
+            <div id="pageXMLEditorDialog_snippet">
+                <h3>Page XML Editor</h3>
+                <div id="savePageXml_btn" onclick="">Save XML</div>
+                <div id="pageXML">
+                </div>
+            </div>
+            <div id="sceneXMLEditorDialog_snippet">
+                <h3>Scene XML Editor</h3>
+                <div id="saveSceneXml_btn" onclick="saveSceneXML()">Save XML</div>
+                <div id="sceneXML">
+                </div>
+            </div>
+            <div id="sceneDataDialog_snippet">
+                <div id="sceneData">
+                    <h3>Scene Data</h3>
+                    <div id="pageDiagramBtn" onmousedown="diagramScenePages()">Diagram Pages.</div>
+                    <br />
+                    <div id="sceneName"></div>
+                    <ul id="pageList"></ul>
+                </div>
+            </div>
+            <div id="sceneListDialog_snippet">
+                <h3>Scene List</h3>
+                <h4 onclick='handleXml((new window.DOMParser()).parseFromString(localStorage.decisionz, "text/xml"))'>
+                    Load Scene List
+                </h4>
+                <ul id="sceneList" ></ul>
+            </div>
+            <div id="timelineDialog_snippet">
+            </div>
+        </div>
+    </body>
+</html>

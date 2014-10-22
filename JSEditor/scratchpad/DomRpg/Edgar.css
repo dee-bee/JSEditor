@@ -1,0 +1,64 @@
+#edgarContainer{
+	position:absolute;
+}
+
+#edgar{
+	position:absolute;
+	width: 33;
+	height: 50px;
+	background-image: url('images/Edgar_alpha.png');
+	background-size: 736px;
+	background-position-x: -35px;
+	background-position-y: -104px;
+	left: -0px;
+	top: 0px;}
+
+#edgar.standingLeft{
+	background-position-x: -35px;
+	background-position-y: -104px;
+}
+
+#edgar.standingUp{
+    background-position-x: 0px;
+	background-position-y: 0px;
+}
+
+#edgar.standingRight{
+	background-position-x: -35px;
+	background-position-y: -104px;
+	transform: scaleX(-1)
+}
+
+#edgar.standingDown{
+	background-position-x: -35px;
+	background-position-y: -51px;
+}
+
+#edgar.walkingLeft{
+	background-position-y: -104px;
+	-webkit-animation: animEdgarWalking .5s steps(1,end) infinite;
+}
+
+#edgar.walkingRight{
+	background-position-y: -104px;
+	-webkit-animation: animEdgarWalking .5s steps(1,end) infinite;
+	transform: scaleX(-1)
+}
+
+#edgar.walkingDown{
+	width: 33px;
+	background-position-y: -51px;
+	-webkit-animation: animEdgarWalking .5s steps(1,end) infinite;
+}
+
+#edgar.walkingUp{	
+	width: 33px;
+	background-position-y: -0px;
+	-webkit-animation: animEdgarWalking .5s steps(1,end) infinite;
+}
+
+@-webkit-keyframes animEdgarWalking{
+    0%   {background-position-x: -35px;}
+    33%  {background-position-x: 0px;}
+    66%  {background-position-x: -65px;}
+}

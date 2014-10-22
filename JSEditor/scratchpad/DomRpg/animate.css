@@ -1,0 +1,40 @@
+.kf1{ 
+	-webkit-animation: k_f1 4s linear forwards;
+}
+
+@-webkit-keyframes k_f1{
+    0%   {left: 0px;}
+    100%   {left: 400px;}
+}
+
+.kf2{ 
+	-webkit-animation: k_f2 4s linear forwards;
+}
+
+@-webkit-keyframes k_f2{
+    0%   {left: 400px;
+            top: 0px;}
+    100%   {left: 400px;
+            top: 200px;}
+}
+
+.kf3{ 
+	-webkit-animation: k_f3 4s linear forwards;
+}
+
+@-webkit-keyframes k_f3{
+    0%   {left: 0px;}
+    100%   {left: 200px;}
+}
+
+.kf4{ 
+	-webkit-animation: k_f4 4s linear forwards;
+}
+
+@-webkit-keyframes k_f4{
+    0%   {left: 200px;
+            top: 0px;}
+    100%   {left: 200px;
+            top: 100px;}
+}
+

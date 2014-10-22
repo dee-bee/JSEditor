@@ -7,8 +7,14 @@ function appendBlankScene(){
     $("#xml").find(">config > scenes").append("<scene name='changeMe'></scene>")
 }
 
+var jXmlClone
 function getConfigXml(){
-    return new XMLSerializer().serializeToString(xml)
+	jXmlClone = $($(xml).clone())
+	jXmlClone.find("decisionvars > variable[name='bookmarks']").empty()
+	jXmlClone.find("decisionvars > variable[name='log']").empty()
+	jXmlClone.find("decisionvars > variable[name='narrationLog']").empty()
+	
+    return new XMLSerializer().serializeToString(jXmlClone[0]).replace(/xmlns\=\"http\:\/\/www\.w3\.org\/1999\/xhtml\"/g,"")
 }
 
 var scaleTimelineFactor = 1500000

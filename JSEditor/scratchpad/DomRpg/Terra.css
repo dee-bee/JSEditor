@@ -1,0 +1,67 @@
+#terra{
+	position:absolute;
+	width: 37;
+	height: 50px;
+	background-image: url('images/Terra_alpha.gif');
+	background-size: 432px;
+	background-position-x: -30px;
+	background-position-y: -98px;
+	left: -0px;
+	top: 100px;
+}
+
+#terraContainer{
+	position:absolute;
+}
+
+
+#terra.standingLeft{
+	background-position-x: -30px;
+	background-position-y: -98px;
+}
+
+#terra.standingUp{
+    background-position-x: 0px;
+	background-position-y: 0px;
+}
+
+#terra.standingRight{
+	background-position-x: -30px;
+	background-position-y: -98px;
+	transform: scaleX(-1)
+}
+
+#terra.standingDown{
+	background-position-x: -35px;
+	background-position-y: -51px;
+}
+
+#terra.walkingLeft{
+	background-position-y: -98px;
+	-webkit-animation: animTerraWalking .5s steps(1,end) infinite;
+}
+
+#terra.walkingRight{
+	background-position-y: -98px;
+	-webkit-animation: animTerraWalking .5s steps(1,end) infinite;
+	transform: scaleX(-1)
+}
+
+#terra.walkingDown{
+	width: 33px;
+	background-position-y: -51px;
+	-webkit-animation: animterraWalking .5s steps(1,end) infinite;
+}
+
+#terra.walkingUp{	
+	width: 33px;
+	background-position-y: -0px;
+	-webkit-animation: animTerraWalking .5s steps(1,end) infinite;
+}
+
+@-webkit-keyframes animTerraWalking{
+    0%   {background-position-x: -30px;}
+    33%  {background-position-x: 0px;}
+    66%  {background-position-x: -65px;}
+}
+

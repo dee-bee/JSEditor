@@ -19,6 +19,6 @@ h1 { font-size: large }
     background: url(bg.gif) repeat-x; text-align: center }
 #banner a { color: white; }
 
-#main { padding: 1em; }
+#main { /* padding: 1em; */ }
 
 a img { border: none; }

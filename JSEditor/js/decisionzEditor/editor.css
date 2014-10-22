@@ -11,3 +11,28 @@
 #snippets{
 	display:none;
 }
+
+#menu{
+    width: 900px;
+	
+}
+
+#menu > li {
+	float:left;
+	width 200px;
+	width: 130px;
+	clear: none;
+	
+}
+
+#menu li{
+	cursor:pointer;
+}
+
+#menu li:hover > ul{
+	display: block;
+}
+
+#menu li > ul{
+	display: none;
+}

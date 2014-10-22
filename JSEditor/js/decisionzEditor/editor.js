@@ -1,7 +1,25 @@
 
 
 function initEditor(){
-	loadDialog("sceneListDialog", 200, 300, [0,0])
+	loadDialog("sceneListDialog", 200, 300, [0,50])
+}
+
+
+
+function loadPageContent(){
+	var remotePageUrl = $(xml).find("decisionvars > variable[name='remotePageContentURL']").attr("value") 
+			+ "?title=" + sceneName +  ":" 
+			+ pageId;
+
+
+	//Load remote content
+	$.ajax({
+		type: "GET",
+		url: remotePageUrl + "&action=raw",
+		dataType: "text",
+		success: remotePageContent,
+		error: ajaxErrorFunc
+	});	
 }
 
 var jElement
@@ -41,12 +59,22 @@ function handleXml(t_xml){
 var currentScene = null;
 var currentPage = null;
 
+function ajaxErrorFunc(jqXHR, textStatus, errorThrown){
+	alert("Error- Ajax load failed.");
+}
+
+var sceneName
+
+function remotePageContent(text){
+	$("#pageContents").text(text)
+}
+
 function sceneClicked(value){
 	loadDialog("sceneDataDialog", 200, 300,[300,0])
 
-	loadDialog("sceneXMLEditorDialog", 200, 800,[0,200])
+	//loadDialog("sceneXMLEditorDialog", 200, 800,[0,200])
 		
-	var sceneName = $(value).find("> span").html();
+	sceneName = $(value).find("> span").html();
 	currentScene = $(xml).find("scene[name='" + sceneName + "']");
 	
 	
@@ -92,18 +120,35 @@ function saveSceneXML(){
 	}
 }
 
+var pageId
+var currentPage
+
+
+
 function pageClicked(value){
 	loadDialog("pageDataDialog", 200, 300,[600,0])
 	
-	loadDialog("pageXMLEditorDialog", 200, 800,[0,200])
+	//loadDialog("pageXMLEditorDialog", 200, 800,[0,200])
 	
-	
-	var pageId = $(value).find("> span").html();
-	var currentPage = $(currentScene).find("page[id='" + pageId + "']");
+	pageId = $(value).find("> span").html();
+	currentPage = $(currentScene).find("page[id='" + pageId + "']");
 	
 	$("#pageDataDialog").css("display", "block");
 	
 	$("#pageId").html(pageId);
+	
+	if($(currentPage).attr("checkpoint") != undefined){
+		$("#pageCheckpoint").attr("value", $(currentPage).attr("checkpoint"))
+	}else{
+		$("#pageCheckpoint").attr("value", "")
+	}
+	
+	if($(currentPage).attr("duration") != undefined){
+		$("#pageDuration").attr("value", $(currentPage).attr("duration"))
+	}else{
+		$("#pageDuration").attr("value", "0000-00-00 00:00:00")
+	}
+	
 	$("#pageContents").empty();
 	
 	var contentTags = $(currentPage).find("content *");
@@ -114,7 +159,28 @@ function pageClicked(value){
 			contentText += new XMLSerializer().serializeToString(this);
 	});
 
-    $("#pageContents").append(contentText);
+	if(contentText.length != 0){
+    	$("#pageContents").append(contentText);
+	}else{
+		loadPageContent()
+	}
+	
+}
+
+function pageCheckpointChanged(){
+	if($("#pageCheckpoint").attr("value").length == 0){
+		$(currentPage).removeAttr("checkpoint")
+	}else{
+		$(currentPage).attr("checkpoint",$("#pageCheckpoint").attr("value"))
+	}
+}
+
+function pageDurationChanged(){
+	if($("#pageDuration").attr("value") == "0000-00-00 00:00:00"){
+		$(currentPage).removeAttr("duration")
+	}else{
+		$(currentPage).attr("duration",$("#pageDuration").attr("value"))
+	}
 }
 
 var states = new Array();
