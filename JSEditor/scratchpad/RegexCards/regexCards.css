@@ -1,0 +1,212 @@
+#snippets{
+    display:none;
+}
+
+#main{
+    background-color: rgb(155, 168, 179);
+    height: 376px;
+    width: 1000px;
+}
+
+#nextTurnBtn:hover{
+    background-color: lightgrey;
+}
+
+#nextTurnBtn{
+    background-color: grey;
+    width: 150px;
+    text-align: center;
+    height: 26px;
+    padding-top: 7px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#playersContainer{
+    clear: both;
+}
+
+.playerPotentialsLabel{
+    float: left;
+    margin-right: 10px;
+}
+
+.playerPotentials{
+    float: left;
+}
+
+#phrase{
+}
+
+#phrase .letter{
+    /* display: inline-block; */
+    background-color: lightgrey;
+    /* padding: 10px; */
+    height: 30px;
+    text-align: center;
+    padding: 8px 5px 0px 5px;
+    min-height: 30px;
+    min-width: 10px;
+    float: left;
+    margin: 2px;
+}
+
+.playerContainer{
+}
+
+.regex{
+    /* background-color: rgb(172, 172, 53); */
+
+    display: inline-block;
+    padding: 3px;
+    height: 25px;
+    width: 70px;
+    margin: 2px;
+}
+
+.playerCards{
+    background-color: lightcoral;
+    min-height: 30px;
+    clear: both;
+}
+
+.playerCards .card{
+    background-color: lightgreen;
+    height: 30px;
+    padding-top: 10px;
+    width: 110px;
+    text-align: center;
+    margin: 2px;
+    display: inline-block;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+.playerRegexs{    
+    background-color: lightseagreen;
+    min-height: 30px;
+}
+
+.playerNewRegex:hover{
+    background-color: rgb(201, 171, 135);
+}
+
+.playerNewRegex{
+    background-color: bisque;
+    padding: 10px;
+    margin: 3px;
+    width: 100px;
+    text-align: center;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#main .regex.cardDropHover{
+    background-color:black !important;
+}
+
+
+#feedback{
+    position: absolute;
+    top: 100px;
+    left: 200px;
+    width: 600px;
+    height: 300px;
+    background-color: lightgray;
+    display: none;
+}
+
+#main .playerContainer:not([turn]) .playerRegexClickguard{
+    /* display:block; */
+}
+
+#main .playerRegexClickguard{
+    position: absolute;
+}
+
+.playerRegexClickguard,
+#clickGuard{
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    opacity: .6;
+    display: none;
+}
+
+
+#closeFeedbackBtn:hover{
+    background-color: grey;
+}
+
+#closeFeedbackBtn{
+    background-color: darkgray;
+    width: 130px;
+    height: 26px;
+    padding-top: 8px;
+    text-align: center;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#feedbackMain{
+}
+
+#feedbackSelectLetterContainer{
+}
+
+#feedbackSelectLetter:hover{
+    background-color: darkgrey;
+}
+
+#feedbackSelectLetter{
+    display: inline-block;
+    background-color: grey;
+    padding: 12px;
+    margin: 3px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#feedbackSelectLetterLabel{
+    font-size: 20px;
+    text-align: center;
+}
+
+#phrase .letter.matched{
+    background-color: red;
+}
+
+.regexPoints{
+    float:right;
+    color: black;
+    background-color: white;
+    padding: 2px;
+}
+
+.regexStr{
+    float:left;
+}
+
+#main .regexEnabled:hover{
+    background-color: grey;
+}
+
+.regexEnabled[enabled='true']{
+    background-color: black;
+}
+
+.regexEnabled{
+    width: 7px;
+    height: 10px;
+    background-color: white;
+    float: right;
+    margin: 3px;
+    cursor: pointer;
+}
+
+.playerRegexsContainer{
+    position: relative;
+}

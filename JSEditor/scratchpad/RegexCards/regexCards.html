@@ -1,0 +1,83 @@
+<html>
+	<head>
+		<link rel="stylesheet" href="regexCards.css" />
+		<script src="../../lib/jquery/jquery-1.7.2.js"></script>
+		<link rel="stylesheet" href="../../lib/jquery_ui/css/smoothness/jquery-ui-1.8.20.custom.css"></link>
+
+		<script src="../../lib/jquery_ui/js/jquery-ui-1.8.20.custom.min.js"></script>
+
+		<script src="../../lib/jquery.ui.touch-punch.js"></script>
+		
+		<script src="regexCards.js"></script>
+	</head>
+	<body>
+		<div id="main">
+			<div id="nextTurnBtn" onclick="nextTurn()">Next Turn</div>
+			
+			<div id="phrase">
+				<div class="letter">W</div>
+				<div class="letter">h</div>
+				<div class="letter">e</div>
+				<div class="letter">r</div>
+				<div class="letter">e</div>
+				<div class="letter"> </div>
+				<div class="letter">i</div>
+				<div class="letter">n</div>
+				<div class="letter"> </div>
+				<div class="letter">t</div>
+				<div class="letter">h</div>
+				<div class="letter">e</div>
+				<div class="letter"> </div>
+				<div class="letter">w</div>
+				<div class="letter">o</div>
+				<div class="letter">r</div>
+				<div class="letter">l</div>
+				<div class="letter">d</div>
+			</div>
+
+			<div id="playersContainer">
+			</div>
+		</div>
+
+		<div id="clickGuard"></div>
+		<div id="feedback">
+			<div id="feedbackMain">
+				<div id="feedbackSelectLetterContainer">
+					<div id="feedbackSelectLetterLabel">Select a letter.</div>
+					<div id="feedbackSelectLetter" onclick="letterSelected(this)">W</div>
+					<div id="feedbackSelectLetter" onclick="letterSelected(this)">O</div>
+					<div id="feedbackSelectLetter" onclick="letterSelected(this)">R</div>
+					<div id="feedbackSelectLetter" onclick="letterSelected(this)">L</div>
+					<div id="feedbackSelectLetter" onclick="letterSelected(this)">E</div>
+				</div>
+			</div>
+			<div id="closeFeedbackBtn" onclick="closeFeedback()">Close</div>
+		</div>
+
+		<div id="snippets">
+			<div id="snippet_regex">
+				<div class="regex">
+					<div class="regexStr"></div>
+					<div class="regexPoints">0</div>
+					<div class="regexEnabled" onclick="enableRegex(this)"></div>
+				</div>
+			</div>
+			<div id="snippet_card">
+				<div class="card"></div>
+			</div>
+			<div id="snippet_playerContainer">
+				<div class="playerContainer">
+					<div class="playerName"></div>
+					<div class="playerPotentialsLabel">Player Potentials</div>
+					<div class="playerPotentials">0</div>
+					<div class="playerCards"></div>
+					<div class="playerNewRegex" onclick="newRegex(this)">New Regex</div>
+					<div class="playerRegexsContainer">
+						<div class="playerRegexs"></div>
+						<div class="playerRegexClickguard"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
