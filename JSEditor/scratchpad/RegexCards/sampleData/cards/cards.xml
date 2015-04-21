@@ -1,1 +1,6 @@
-<cards></cards>
+<cards>
+    <card id="singleLetter">singleLetter</card>
+    <card id="doubleLetter">doubleLetter</card>
+    <card id="doubleLetter2">doubleLetter2</card>
+    <card id="doubleLetter3">doubleLetter3</card>
+</cards>

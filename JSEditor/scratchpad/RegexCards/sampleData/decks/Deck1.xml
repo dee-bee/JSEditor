@@ -1,1 +1,4 @@
-<deck></deck>
+<deck>
+    <card id="singleLetter"></card>
+    <card id="doubleLetter"></card>
+</deck>
