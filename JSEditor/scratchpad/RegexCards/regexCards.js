@@ -1,6 +1,8 @@
 var params
 var mediaPath = "sampleData/"
 
+// Init  -----------------------------------------------------
+
 $(document).ready(function() {
 	params = getParams(window.location.href);
 
@@ -84,6 +86,9 @@ function startGame(){
 	handleTurn()
 }
 
+
+// End Init -----------------------------------------------------
+
 var potentialRollPercent = .5
 var jCurrentDeck
 
@@ -110,7 +115,7 @@ function handleTurn(){
 			parseInt($($("#main .playerPotentials")[whoseTurn]).text()) + potentalRoll)
 	
 	//Handle cards
-	var j_card = randomCard()
+	var j_card = randomCard(jCurrentDeck)
 
 	var j_card_snip = $($("#snippet_card").html())
 	j_card_snip.text(j_card.text())
@@ -129,71 +134,6 @@ function nextTurn(){
 	}
 
 	handleTurn()
-}
-
-function randomCard(){
-	var numberCards = jCurrentDeck.find("card").length
-	var cardIndex = getRandomInt(0, numberCards - 1)
-
-	var j_card = jCards.find("card[id='" 
-					+ $(jCurrentDeck.find("card")[cardIndex]).attr("id")
-					+ "']")
-	if( j_card.length == 0){
-		throw "Card undefined"
-	}else{
-		return j_card
-	}
-}
-
-var colors = ["red", "orange", "yellow", "green", "blue", "purple"]
-
-var jCurrentRegex
-
-function newRegex(btnNode){
-	var jRegEx = $($("#snippet_regex").html())
-
-	var playerIndex = $(btnNode).parent().index()
-	var randIndex = getRandomInt(0, colors.length - 1)
-
-	console.log(randIndex)
-
-	jRegEx.css("background-color", colors[randIndex])
-
-	$(".playerRegexs:eq(" + playerIndex + ")").append(jRegEx)
-
-	jRegEx.droppable({
-		//accept: "#main .playerContainer:eq(" + playerIndex + ") .card",
-		accept: ".card",
-		hoverClass: "cardDropHover",
-		drop: function( event, ui ) {
-			jCurrentRegex = $(event.target)
-			showFeedback("cardDrop")
-			$(ui.draggable[0]).remove()
-		}
- 	});
-}
-
-function showFeedback(value){
-	$("#clickGuard").css("display", "block")
-	$("#feedback").css("display", "block")
-
-	$("#feedbackMain > *").css("display","none")
-
-	switch(value){
-		case "cardDrop":
-			$("#feedbackSelectLetterContainer").css("display","block")
-			break;
-	}
-}
-
-function closeFeedback(){
-	$("#clickGuard").css("display", "none")
-	$("#feedback").css("display", "none")
-}
-
-function letterSelected(node){
-	jCurrentRegex.find("> .regexStr").append($(node).text())
-	closeFeedback()
 }
 
 function updatePhraseMatches(){
@@ -226,6 +166,37 @@ function updatePhraseMatches(){
 	})
 }
 
+
+// Regex UI functions -------------------------------------------------------
+
+var jCurrentRegex
+
+function newRegex(btnNode, dropFunc){
+	var jRegEx = $($("#snippet_regex").html())
+
+	var playerIndex = $(btnNode).parent().index()
+	var randIndex = getRandomInt(0, colors.length - 1)
+
+	console.log(randIndex)
+
+	jRegEx.css("background-color", colors[randIndex])
+
+	$(".playerRegexs:eq(" + playerIndex + ")").append(jRegEx)
+
+	jRegEx.droppable({
+		//accept: "#main .playerContainer:eq(" + playerIndex + ") .card",
+		accept: ".card",
+		hoverClass: "cardDropHover",
+		drop: dropFunc
+ 	});
+}
+
+function regexDropFunc( event, ui ) {
+	jCurrentRegex = $(event.target)
+	showFeedback("cardDrop")
+	$(ui.draggable[0]).remove()
+}
+
 function enableRegex(node){
 	if($(node).attr("enabled") == undefined){
 		$(node).attr("enabled", 'true')
@@ -235,6 +206,56 @@ function enableRegex(node){
 
 	updatePhraseMatches()
 }
+
+// End Regex UI functions -------------------------------------------------------
+// Dialog Functions --------------------------------------------------------
+
+function showFeedback(value){
+	$("#clickGuard").css("display", "block")
+	$("#feedback").css("display", "block")
+
+	$("#feedbackMain > *").css("display","none")
+
+	switch(value){
+		case "cardDrop":
+			$("#feedbackSelectLetterContainer").css("display","block")
+			break;
+	}
+}
+
+function closeFeedback(){
+	$("#clickGuard").css("display", "none")
+	$("#feedback").css("display", "none")
+}
+
+function letterSelected(node){
+	jCurrentRegex.find("> .regexStr").append($(node).text())
+	closeFeedback()
+}
+
+
+// End Dialog Functions --------------------------------------------------------
+
+// RegexCards Utils (functions that are utility only for this app)----------
+
+function randomCard(jDeck){
+	var numberCards = jDeck.find("card").length
+	var cardIndex = getRandomInt(0, numberCards - 1)
+
+	var j_card = jCards.find("card[id='" 
+					+ $(jDeck.find("card")[cardIndex]).attr("id")
+					+ "']")
+	if( j_card.length == 0){
+		throw "Card undefined"
+	}else{
+		return j_card
+	}
+}
+
+var colors = ["red", "orange", "yellow", "green", "blue", "purple"]
+
+
+// End RegexCards Utils (functions that are utility only for this app)----------
 
 //Utils ------------------------------------------
 
