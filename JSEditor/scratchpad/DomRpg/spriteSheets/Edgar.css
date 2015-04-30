@@ -1,12 +1,13 @@
 #edgarContainer{
 	position:absolute;
+	transform: scale(.4);
 }
 
 #edgar{
 	position:absolute;
 	width: 33;
 	height: 50px;
-	background-image: url('images/Edgar_alpha.png');
+	background-image: url('../images/Edgar_alpha.png');
 	background-size: 736px;
 	background-position-x: -35px;
 	background-position-y: -104px;

@@ -1,0 +1,64 @@
+body{
+	perspective: 2000px;
+	transform-style: preserve-3d;
+	background-color: #E6D897;
+}
+
+#child{
+}
+
+#parent{
+    transform: translate3d(198px,7px,1505px);
+    transform-style: preserve-3d;
+}
+
+#grand{
+    /* transform: translate3d(313px,100px,188px); */
+    transform-origin: 0px 0px;
+    transform-style: preserve-3d;
+}
+
+#airship{
+	background: url("../../images/SNES%20-%20Final%20Fantasy%206%20-%20World%20of%20Balance%20Overworld.png");
+	/* background-size: contain; */
+	height: 600px;
+	width: 600px;
+	/* transform-origin: 2000px 2000px; */
+	/* transition: transform 2s; */
+	background-position: -186px -65px;
+	transform: rotate3d(1,0,0,84deg) rotate3d(0,0,1,1309deg);
+	transform-origin: 300px 300px;;
+}
+
+body:not([nothing=""]) div.airshipttestBankRight{
+    /* transition: transform 1s; */
+    /* transform-origin: 3000px 2000px; */
+    /* transform: translate3d(-1800px,-1736px,-6000px); */
+    background-size: cover;
+}
+
+#grand{
+	/* transition: background 2s; */
+}
+
+#grand.gradientTest{
+    opacity: .7;
+    background: -webkit-radial-gradient(circle, blue, rgba(0,0,0,0) 30%);
+    -webkit-animation: gradientTest .1s infinite;
+}
+
+#grand.gradientTest2{
+    background: -webkit-radial-gradient(circle, blue, rgba(0,0,0,0) 30%)
+}
+
+@-webkit-keyframes gradientTest{
+    0%   {
+			opacity: .7;
+		}
+    50%   {
+			opacity: .6;
+		}
+    100%   {
+			opacity: .7;
+		}
+}

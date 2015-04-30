@@ -3,10 +3,12 @@ var currentCharacter = "edgar"
 var xml
 
 $(document).ready(function() {
+	audioInit();
+	
 	//$("#edgar")[0].addEventListener( 'zwebkitAnimationIteration', 
     //	function( event ) { alert( "Finished transition!" ); }, false );
 
-	document.onkeyup = function(e){
+	/*document.onkeyup = function(e){
 		waitingForKeyUp = false
 
 		var parseLine = /walking(.*)/.exec($("#" + currentCharacter).attr("class"));
@@ -41,53 +43,86 @@ $(document).ready(function() {
 				$("#" + currentCharacter).addClass("walkingDown")
 				break;  
 		}   
-	};
+	};*/
 
-	$.get( "animate.xml", function( t_xml ) {
-		xml = t_xml
-		
-		playSceneChild(currentSceneChildIndex)
-	});
-		
+	//loadAnimation("animations/falconTerraEdgarDecideToRescueLocke.xml", false)
 });
 
 var currentFrame = 0
 
-function playFrame(index, name, keyframeNode, numberOfFrames){
-	//Sprite
-	$("#" + name).removeClass()
-	$("#" + name).addClass($(keyframeNode).attr('sprite'))
+function loadAnimation(filename, play){
+	$("#dialogBox").removeAttr("show")
 	
-	//Container
-	if($(keyframeNode).attr('container') != undefined){
-		$("#" + name + "Container").removeClass()
-		$("#" + name + "Container").addClass($(keyframeNode).attr('container'))
+	//Load xml
+	$.get(filename, function( t_xml ) {
+		xml = t_xml
+		
+		currentSceneChildIndex = 0
+		
+		playNextPlayableChild(play)
+	});
+}
+
+function playNextPlayableChild(play){
+	while(1){	
+		var result = playSceneChild(currentSceneChildIndex, play)
+		switch(result){
+			case "not_playable":
+			case "undefined":
+				break
+			default:
+				return
+		}
+		
+		currentSceneChildIndex++
 	}
 }
 
-function playCharacterAnimation(characterNode){
-	var time = 0
-	var name = $(characterNode).attr("name")
-	var numberOfFrames = $(characterNode).find("keyframe").length
+function playFrame(index, selector, keyframeNode){
+	//Sprite
+	$(selector).removeClass()
+	$(selector).addClass($(keyframeNode).attr('class'))
 	
-	$(characterNode).find("keyframe").each(function(i,v){
-		setTimeout(function(){playFrame(i,name,v, numberOfFrames)}, time);
-		time += parseInt($(v).attr("time"))
-	})
-	
-	setTimeout(function(){animationFinished()}, time);
+	if($(keyframeNode).attr("audio") != undefined){
+		var loop = false
+		
+		if($(keyframeNode).attr("loop") != undefined){
+			loop = true
+		}
+		
+		loadHTMLAudio($(keyframeNode).attr("audio"), "", "htmlAudioPlayerDiv",loop)
+		//$("audio")[0].play()
+	}
 }
 
-var numAnimations = 0
+function playAnimationGroup(groupNode){
+	var time = 0
+	var selector = $(groupNode).attr("selector")
+	//var numberOfFrames = $(groupNode).find("keyframe").length
+	
+	$(groupNode).find("keyframe").each(function(i,v){
+		setTimeout(function(){playFrame(i,selector,v)}, parseInt($(v).attr("starttime")));
+		//time =  parseInt($(v).attr("endtime"))
+	})
+}
+
+//var numAnimations = 0
 
 function playAnimation(animationNode){
-	numAnimations = 0
+	//numAnimations = 0
 	
-	$(animationNode).find("character").each(function(i,v){
-		numAnimations++
-		playCharacterAnimation(v)
+	$(animationNode).find("group").each(function(i,v){
+		//numAnimations++
+		playAnimationGroup(v)
 	})
 	
+	//Set callback that animation is finished
+	if($(animationNode).attr("endtime") == undefined){
+		alert("no endtime for animation found")
+	}else{
+		setTimeout(function(){animationFinished()}, 
+						$(animationNode).attr("endtime"));
+	}
 }
 
 function okClicked(){
@@ -97,11 +132,11 @@ function okClicked(){
 }
 
 function animationFinished(){
-	numAnimations--
+	//numAnimations--
 
-	if(numAnimations == 0){
+	//if(numAnimations == 0){
 		animationsFinished()
-	}
+	//}
 }
 
 function animationsFinished(){
@@ -111,20 +146,44 @@ function animationsFinished(){
 
 var currentSceneChildIndex = 0
 
-function playSceneChild(index){
+function playSceneChild(index, play){
+	if(play == undefined){
+		play = true;
+	}
+	
 	var v = $(xml).find("scene > *")[index]
 	
 	if(v == undefined){
-		return
+		return "undefined"
 	}
 	
 	switch(v.tagName){
 		case "animation":
-			playAnimation(v)
+			if($(v).attr("loadhtml") != undefined){
+				//Load html
+				var selector = "#main"
+				
+				if($(v).attr("selector") != undefined){
+					selector = $(v).attr("selector")
+				}
+					
+				$(selector).load($(v).attr("loadhtml"),function(){
+					if(play){
+						playAnimation(v)
+					}
+				})
+			}else{
+				if(play){
+					playAnimation(v)
+				}
+			}
+			
 			break;
-		case "dialog":
+		case "page":
 			$("#dialogBox").attr("show", "true")
-			$("#dialogBox > dialog").text($(v).text())
+			$("#dialogBox > #dialog").text($(v).text())
 			break;
+		default:
+			return "not_playable";
 	}
 }

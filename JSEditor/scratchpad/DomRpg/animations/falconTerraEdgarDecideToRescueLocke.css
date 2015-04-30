@@ -1,0 +1,162 @@
+#edgarContainer{
+    transform: scale(.4);
+    left: 210px;
+    top: 112px;
+}
+
+#terraContainer {
+	transform: scale(.4);
+	left: 262px;
+	top: 112px;
+}
+
+div#main {
+	width: 482px;
+	overflow: hidden;
+	height: 290px;
+	background-color: rgb(233, 227, 216);
+	top: 0px;
+	left: 0px;
+	position: absolute;
+	perspective: 800px;
+}
+
+#oceanBackground{
+    background-image: url("../images/Ocean.png");
+	
+    width: 482px;
+    height: 290px;
+    position: relative;
+    background-color: green;
+}
+
+.edgarMoveRight{ 
+	-webkit-animation: edgarMoveRight 2s linear forwards;
+}
+
+@-webkit-keyframes edgarMoveRight{
+    100%   {
+			left: 250px;
+			}
+}
+
+.edgarMoveDown{ 
+	-webkit-animation: edgarMoveDown 4s linear forwards;
+}
+
+@-webkit-keyframes edgarMoveDown{
+    0%   {left: 0px;
+            top: 0px;}
+    100%   {left: 0px;
+            top: 200px;}
+}
+
+.oceanScroll{ 
+	 -webkit-animation: oceanScroll 4s linear forwards; 
+}
+
+#terraContainer{
+	/* display:none; */
+}
+
+div#falcon.zoomed {
+	transform: scale(2.5);
+}
+
+@-webkit-keyframes oceanScroll{
+    0%   {left: 0px;}
+    100%   {left: 0px;}
+}
+
+.falconScroll{ 
+	-webkit-animation: falconScroll 4s linear forwards;
+}
+
+@-webkit-keyframes falconScroll{
+    0%   {left: 0px;
+            top: 0px;}
+    100%   {left: 0px;
+            top: 0px;}
+}
+
+
+#falcon {
+	left: 0px;
+	top: 0px;
+	transition: transform 3s, left 1.2s;
+	-webkit-animation: bobbleFalcon 3s infinite;
+}
+
+@-webkit-keyframes bobbleFalcon{
+	0% {top:0px;}
+	50% {top:-10px;}
+	100% {top:0px;}
+}
+
+#falcon.falconFliesAway{
+	transform: scale(2.5);
+	left: -900px;
+}
+
+.terraMoveDown{ 
+	-webkit-animation: terraMoveDown 1s linear forwards;
+}
+
+@-webkit-keyframes terraMoveDown{
+	0% {
+		left: 262px;
+		top: 112px;
+		}
+	100% {
+		left: 262px;
+		top: 126px;
+		}
+}
+
+
+.edgarMoveLeft{ 
+	-webkit-animation: edgarMoveLeft 2s linear forwards;
+}
+
+@-webkit-keyframes edgarMoveLeft{
+	0% {
+		left: 250px;
+		top: 112px;
+		}
+	100% {
+		left: 230px;
+		top: 112px;
+		}
+}
+
+
+.terraMoveUp{ 
+	-webkit-animation: terraMoveUp 1s linear forwards;
+}
+
+@-webkit-keyframes terraMoveUp{
+	0% {
+		left: 262px;
+		top: 126px;
+		}
+	100% {
+		left: 262px;
+		top: 115px;
+		}
+}
+
+
+.edgarMoveToWheel{ 
+	-webkit-animation: edgarMoveToWheel 1s linear forwards;
+}
+
+@-webkit-keyframes edgarMoveToWheel{
+	0% {
+		left: 230px;
+		top: 112px;
+		}
+	100% {
+		left: 210px;
+		top: 112px;
+		}
+}

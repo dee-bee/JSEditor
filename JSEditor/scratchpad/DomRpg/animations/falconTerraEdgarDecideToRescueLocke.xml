@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scene default_end_handler="loadDialog" default_ok_handler="loadDialog">
+	<data>
+		<page id="D_E_wntt" onok="D_E_iiwt">Edgar: We need to think this through.</page>
+		<page id="D_E_iiwt" onok="loadAnimation('terraLookDown')">Edgar: Is it wise to fly right into Doom Gaze's lair?</page>
+		<page id="D_T" onok="loadAnimation('terraWalkDown')">Terra: ...</page>
+	</data>
+	
+	<animation selector="#main" endtime="4000" loadhtml="animations/falconTerraEdgarDecideToRescueLocke.html">
+		<group selector="#falcon">
+			<keyframe starttime="0" class="" audio="ff3awakening2" loop="true"></keyframe>
+			<keyframe starttime="1000" class="zoomed"></keyframe>
+		</group>
+	</animation>
+	<animation endtime="4000" >
+		<group selector="#edgar">
+			<keyframe starttime="0" class="standingLeft"></keyframe>
+			<keyframe starttime="2000" class="walkingRight"></keyframe>
+			<keyframe starttime="4000" class="standingRight"></keyframe>
+		</group>
+		<group selector="#edgarContainer">
+			<keyframe starttime="2000" class="edgarMoveRight"></keyframe>
+		</group>		
+	</animation>
+	<page >Edgar: We need to think this through.</page>
+	<page >Edgar: Is it wise to fly right into Doom Gaze's lair?</page>
+	<animation id="terraLookDown" endtime="1500">
+		<group selector="#terra">
+			<keyframe starttime="0" class="lookingDownLeft"></keyframe>
+		</group>	
+	</animation>
+	<page id="D_T">Terra: ...</page>
+	<animation id="terraWalkDown" endtime="3500">
+		<group selector="#terra">
+			<keyframe starttime="0" class="lookingDown"></keyframe>
+			<keyframe starttime="1000" class="walkingDown"></keyframe>
+			<keyframe starttime="2000" class="lookingDown"></keyframe>
+			<keyframe starttime="2500" class="lookingDownLeft"></keyframe>
+		</group>	
+		<group selector="#terraContainer">
+			<keyframe starttime="1000" class="terraMoveDown"></keyframe>
+		</group>	
+	</animation>
+	<page>Terra: I just can't think of anything else we can do...</page>
+	<animation endtime="5000">
+		<group selector="#edgar">
+			<keyframe starttime="1000" class="standingDown"></keyframe>
+			<keyframe starttime="2000" class="walkingLeft"></keyframe>
+			<keyframe starttime="4000" class="standingLeft"></keyframe>
+		</group>
+		<group selector="#edgarContainer">
+			<keyframe starttime="2000" class="edgarMoveLeft"></keyframe>
+		</group>		
+	</animation>
+	<page>Edgar: Locke is trapped, but should we risk everything to try and save him?</page>
+	<animation endtime="5000">
+		<group selector="#terra">
+			<keyframe starttime="500" class="lookingDown"></keyframe>
+			<keyframe starttime="2000" class="walkingUp"></keyframe>
+			<keyframe starttime="3000" class="standingUp"></keyframe>
+			<keyframe starttime="4000" class="lookingDownLeft"></keyframe>
+		</group>	
+		<group selector="#terraContainer">
+			<keyframe starttime="2000" class="terraMoveUp"></keyframe>
+		</group>	
+	</animation>
+	<page>Terra: That time that he saved me from Kefka, he risked everything ... for me ...</page>
+	<animation endtime="2000">
+		<group selector="#edgar">
+			<keyframe starttime="1000" class="standingRight"></keyframe>
+		</group>	
+	</animation>
+	<page>Edgar: Then it is...</page>
+	<animation endtime="2000">
+		<group selector="#edgar">
+			<keyframe starttime="0" class="standingLeft"></keyframe>
+			<keyframe starttime="500" class="walkingLeft"></keyframe>
+			<keyframe starttime="1500" class="standingLeft"></keyframe>
+		</group>	
+		<group selector="#edgarContainer">
+			<keyframe starttime="500" class="edgarMoveToWheel"></keyframe>
+		</group>
+	</animation>
+	<page>Edgar: Locke, here we come old friend!</page>
+	<animation endtime="3000">
+		<group selector="#falcon">
+			<keyframe starttime="1200" class="falconFliesAway"></keyframe>
+		</group>		
+	</animation>
+</scene>

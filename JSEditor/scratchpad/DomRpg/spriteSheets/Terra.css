@@ -1,13 +1,13 @@
 #terra{
 	position:absolute;
-	width: 37;
+	width: 35;
 	height: 50px;
-	background-image: url('images/Terra_alpha.gif');
+	background-image: url('../images/Terra_alpha.gif');
 	background-size: 432px;
-	background-position-x: -30px;
+	background-position-x: -28px;
 	background-position-y: -98px;
-	left: -0px;
-	top: 100px;
+	/* left: -0px; */
+	/* top: 100px; */
 }
 
 #terraContainer{
@@ -21,8 +21,9 @@
 }
 
 #terra.standingUp{
-    background-position-x: 0px;
-	background-position-y: 0px;
+    background-position-x: -28px;
+	
+    background-position-y: 0px;
 }
 
 #terra.standingRight{
@@ -32,7 +33,7 @@
 }
 
 #terra.standingDown{
-	background-position-x: -35px;
+	background-position-x: -30px;
 	background-position-y: -51px;
 }
 
@@ -50,18 +51,35 @@
 #terra.walkingDown{
 	width: 33px;
 	background-position-y: -51px;
-	-webkit-animation: animterraWalking .5s steps(1,end) infinite;
+	-webkit-animation: animTerraWalking .5s steps(1,end) infinite;
 }
 
 #terra.walkingUp{	
-	width: 33px;
-	background-position-y: -0px;
+	width: 32px;
+	background-position-y: 0px;
 	-webkit-animation: animTerraWalking .5s steps(1,end) infinite;
 }
 
 @-webkit-keyframes animTerraWalking{
-    0%   {background-position-x: -30px;}
+    0%   {background-position-x: -32px;}
     33%  {background-position-x: 0px;}
     66%  {background-position-x: -65px;}
 }
 
+
+#terra.lookingDownRight{
+	background-position-x: 200px;
+	background-position-y: -192px;
+	transform: scaleX(-1)
+}
+
+#terra.lookingDownLeft{
+	background-position-x: 167px;
+	background-position-y: -192px;
+	width: 30;
+}
+
+#terra.lookingDown{
+	background-position-x: 200px;
+	background-position-y: -192px;
+}
