@@ -1,0 +1,506 @@
+#player{
+    width: 50px;
+
+    height: 50px;
+    background-color: blue;
+    position: absolute;
+    left: 100px;
+    top: 164px;
+    opacity: .2;
+}
+
+#player .collisionBox{
+    width: 20px;
+    
+    height: 50px;
+    left: 14px;
+    background-color: red;
+    position: absolute;
+}
+
+#main{
+    position: absolute;
+
+    top: 0px;
+    left: 0px;
+    /* width: 400px; */
+    /* height: 216px; */
+    background-color: rgba(194, 27, 177, 0.5);
+}
+
+#mainCanvas{
+    position: absolute;
+    
+    top: 0px;
+    left: 0px;
+}
+
+#main[fired="true"]{
+    opacity:0;
+    transition: opacity 3s;
+    transition-delay:2;
+}
+
+#theCanvas{
+    /* width: 800px; */
+    /* height: 430px; */
+    border:1px solid black;
+    position:absolute;
+    top:0px;
+    left:0px
+}
+
+#theCanvasBackground{
+    /* width: 800px; */
+    /* height: 430px; */
+    border:1px solid black;
+    position:absolute;
+    top:0px;
+    left:0px
+}
+
+body{
+    background-color: lightgray;
+
+    /* width: 100%; */
+    /* height: 100%; */
+    overflow: hidden;
+}
+
+#main[fired="true"] #cannonball{
+    left: 5px; 
+    top: 73px;
+}
+
+#cannonball{
+    left: 645px; 
+    top: 73px;
+}
+
+
+#snippets{
+    display:none;
+}
+
+#cannonball{
+    display: none;
+    width: 40px;
+    
+    height: 40px;
+    position: absolute;
+    background-color: red;
+    /* transition: left 1s; */
+}
+
+.smokeCloud{
+    width: 30px;
+    
+    height: 40px;
+    background: url('img/smokeCloud.png');
+    position: absolute;
+    transition: opacity 1s;
+    opacity: 0;
+}
+
+#main[fired='true'] .smokeCloud99{ opacity:1;}
+
+.smokeCloud0{ left:463px;opacity:0; transition-delay:.337s;top:37px;}
+
+#main[fired='true'] .smokeCloud0{ opacity:1;}
+
+.smokeCloud1{ left:436px;opacity:0; transition-delay:.364s;top:88px;}
+
+#main[fired='true'] .smokeCloud1{ opacity:1;}
+
+.smokeCloud2{ left:457px;opacity:0; transition-delay:.343s;top:99px;}
+
+#main[fired='true'] .smokeCloud2{ opacity:1;}
+
+.smokeCloud3{ left:504px;opacity:0; transition-delay:.296s;top:75px;}
+
+#main[fired='true'] .smokeCloud3{ opacity:1;}
+
+.smokeCloud4{ left:514px;opacity:0; transition-delay:.286s;top:74px;}
+
+#main[fired='true'] .smokeCloud4{ opacity:1;}
+
+.smokeCloud5{ left:403px;opacity:0; transition-delay:.397s;top:82px;}
+
+#main[fired='true'] .smokeCloud5{ opacity:1;}
+
+.smokeCloud6{ left:401px;opacity:0; transition-delay:.399s;top:128px;}
+
+#main[fired='true'] .smokeCloud6{ opacity:1;}
+
+.smokeCloud7{ left:393px;opacity:0; transition-delay:.407s;top:54px;}
+
+#main[fired='true'] .smokeCloud7{ opacity:1;}
+
+.smokeCloud8{ left:437px;opacity:0; transition-delay:.363s;top:132px;}
+
+#main[fired='true'] .smokeCloud8{ opacity:1;}
+
+.smokeCloud9{ left:481px;opacity:0; transition-delay:.319s;top:114px;}
+
+#main[fired='true'] .smokeCloud9{ opacity:1;}
+
+.smokeCloud10{ left:361px;opacity:0; transition-delay:.439s;top:48px;}
+
+#main[fired='true'] .smokeCloud10{ opacity:1;}
+
+.smokeCloud11{ left:381px;opacity:0; transition-delay:.419s;top:102px;}
+
+#main[fired='true'] .smokeCloud11{ opacity:1;}
+
+.smokeCloud12{ left:278px;opacity:0; transition-delay:.522s;top:65px;}
+
+#main[fired='true'] .smokeCloud12{ opacity:1;}
+
+.smokeCloud13{ left:432px;opacity:0; transition-delay:.368s;top:102px;}
+
+#main[fired='true'] .smokeCloud13{ opacity:1;}
+
+.smokeCloud14{ left:577px;opacity:0; transition-delay:.223s;top:148px;}
+
+#main[fired='true'] .smokeCloud14{ opacity:1;}
+
+.smokeCloud15{ left:341px;opacity:0; transition-delay:.459s;top:29px;}
+
+#main[fired='true'] .smokeCloud15{ opacity:1;}
+
+.smokeCloud16{ left:607px;opacity:0; transition-delay:.193s;top:150px;}
+
+#main[fired='true'] .smokeCloud16{ opacity:1;}
+
+.smokeCloud17{ left:621px;opacity:0; transition-delay:.179s;top:158px;}
+
+#main[fired='true'] .smokeCloud17{ opacity:1;}
+
+.smokeCloud18{ left:537px;opacity:0; transition-delay:.263s;top:113px;}
+
+#main[fired='true'] .smokeCloud18{ opacity:1;}
+
+.smokeCloud19{ left:567px;opacity:0; transition-delay:.233s;top:139px;}
+
+#main[fired='true'] .smokeCloud19{ opacity:1;}
+
+.smokeCloud20{ left:643px;opacity:0; transition-delay:.157s;top:58px;}
+
+#main[fired='true'] .smokeCloud20{ opacity:1;}
+
+.smokeCloud21{ left:529px;opacity:0; transition-delay:.271s;top:34px;}
+
+#main[fired='true'] .smokeCloud21{ opacity:1;}
+
+.smokeCloud22{ left:428px;opacity:0; transition-delay:.372s;top:44px;}
+
+#main[fired='true'] .smokeCloud22{ opacity:1;}
+
+.smokeCloud23{ left:572px;opacity:0; transition-delay:.228s;top:7px;}
+
+#main[fired='true'] .smokeCloud23{ opacity:1;}
+
+.smokeCloud24{ left:419px;opacity:0; transition-delay:.381s;top:11px;}
+
+#main[fired='true'] .smokeCloud24{ opacity:1;}
+
+.smokeCloud25{ left:458px;opacity:0; transition-delay:.342s;top:5px;}
+
+#main[fired='true'] .smokeCloud25{ opacity:1;}
+
+.smokeCloud26{ left:529px;opacity:0; transition-delay:.271s;top:2px;}
+
+#main[fired='true'] .smokeCloud26{ opacity:1;}
+
+.smokeCloud27{ left:540px;opacity:0; transition-delay:.260s;top:149px;}
+
+#main[fired='true'] .smokeCloud27{ opacity:1;}
+
+.smokeCloud28{ left:515px;opacity:0; transition-delay:.285s;top:145px;}
+
+#main[fired='true'] .smokeCloud28{ opacity:1;}
+
+.smokeCloud29{ left:486px;opacity:0; transition-delay:.314s;top:135px;}
+
+#main[fired='true'] .smokeCloud29{ opacity:1;}
+
+.smokeCloud30{ left:460px;opacity:0; transition-delay:.340s;top:124px;}
+
+#main[fired='true'] .smokeCloud30{ opacity:1;}
+
+.smokeCloud31{ left:315px;opacity:0; transition-delay:.485s;top:89px;}
+
+#main[fired='true'] .smokeCloud31{ opacity:1;}
+
+.smokeCloud32{ left:282px;opacity:0; transition-delay:.518s;top:34px;}
+
+#main[fired='true'] .smokeCloud32{ opacity:1;}
+
+.smokeCloud33{ left:654px;opacity:0; transition-delay:.146s;top:88px;}
+
+#main[fired='true'] .smokeCloud33{ opacity:1;}
+
+.smokeCloud34{ left:659px;opacity:0; transition-delay:.141s;top:52px;}
+
+#main[fired='true'] .smokeCloud34{ opacity:1;}
+
+.smokeCloud35{ left:634px;opacity:0; transition-delay:.166s;top:33px;}
+
+#main[fired='true'] .smokeCloud35{ opacity:1;}
+
+.smokeCloud36{ left:606px;opacity:0; transition-delay:.194s;top:121px;}
+
+#main[fired='true'] .smokeCloud36{ opacity:1;}
+
+.smokeCloud37{ left:663px;opacity:0; transition-delay:.137s;top:132px;}
+
+#main[fired='true'] .smokeCloud37{ opacity:1;}
+
+.smokeCloud38{ left:588px;opacity:0; transition-delay:.212s;top:132px;}
+
+#main[fired='true'] .smokeCloud38{ opacity:1;}
+
+.smokeCloud39{ left:546px;opacity:0; transition-delay:.254s;top:125px;}
+
+#main[fired='true'] .smokeCloud39{ opacity:1;}
+
+.smokeCloud40{ left:513px;opacity:0; transition-delay:.287s;top:119px;}
+
+#main[fired='true'] .smokeCloud40{ opacity:1;}
+
+.smokeCloud41{ left:442px;opacity:0; transition-delay:.358s;top:106px;}
+
+#main[fired='true'] .smokeCloud41{ opacity:1;}
+
+.smokeCloud42{ left:367px;opacity:0; transition-delay:.433s;top:96px;}
+
+#main[fired='true'] .smokeCloud42{ opacity:1;}
+
+.smokeCloud43{ left:358px;opacity:0; transition-delay:.442s;top:13px;}
+
+#main[fired='true'] .smokeCloud43{ opacity:1;}
+
+.smokeCloud44{ left:229px;opacity:0; transition-delay:.571s;top:55px;}
+
+#main[fired='true'] .smokeCloud44{ opacity:1;}
+
+.smokeCloud45{ left:144px;opacity:0; transition-delay:.656s;top:64px;}
+
+#main[fired='true'] .smokeCloud45{ opacity:1;}
+
+.smokeCloud46{ left:77px;opacity:0; transition-delay:.723s;top:51px;}
+
+#main[fired='true'] .smokeCloud46{ opacity:1;}
+
+.smokeCloud47{ left:185px;opacity:0; transition-delay:.615s;top:56px;}
+
+#main[fired='true'] .smokeCloud47{ opacity:1;}
+
+.smokeCloud48{ left:394px;opacity:0; transition-delay:.406s;top:30px;}
+
+#main[fired='true'] .smokeCloud48{ opacity:1;}
+
+.smokeCloud49{ left:324px;opacity:0; transition-delay:.476s;top:28px;}
+
+#main[fired='true'] .smokeCloud49{ opacity:1;}
+
+.smokeCloud50{ left:345px;opacity:0; transition-delay:.455s;top:84px;}
+
+#main[fired='true'] .smokeCloud50{ opacity:1;}
+
+.smokeCloud51{ left:409px;opacity:0; transition-delay:.391s;top:24px;}
+
+#main[fired='true'] .smokeCloud51{ opacity:1;}
+
+.smokeCloud52{ left:413px;opacity:0; transition-delay:.387s;top:65px;}
+
+#main[fired='true'] .smokeCloud52{ opacity:1;}
+
+.smokeCloud53{ left:546px;opacity:0; transition-delay:.254s;top:98px;}
+
+#main[fired='true'] .smokeCloud53{ opacity:1;}
+
+.smokeCloud54{ left:551px;opacity:0; transition-delay:.249s;top:36px;}
+
+#main[fired='true'] .smokeCloud54{ opacity:1;}
+
+.smokeCloud55{ left:471px;opacity:0; transition-delay:.329s;top:89px;}
+
+#main[fired='true'] .smokeCloud55{ opacity:1;}
+
+.smokeCloud56{ left:506px;opacity:0; transition-delay:.294s;top:65px;}
+
+#main[fired='true'] .smokeCloud56{ opacity:1;}
+
+.smokeCloud57{ left:493px;opacity:0; transition-delay:.307s;top:55px;}
+
+#main[fired='true'] .smokeCloud57{ opacity:1;}
+
+.smokeCloud58{ left:439px;opacity:0; transition-delay:.361s;top:24px;}
+
+#main[fired='true'] .smokeCloud58{ opacity:1;}
+
+.smokeCloud59{ left:489px;opacity:0; transition-delay:.311s;top:19px;}
+
+#main[fired='true'] .smokeCloud59{ opacity:1;}
+
+.smokeCloud60{ left:407px;opacity:0; transition-delay:.393s;top:111px;}
+
+#main[fired='true'] .smokeCloud60{ opacity:1;}
+
+.smokeCloud61{ left:656px;opacity:0; transition-delay:.144s;top:18px;}
+
+#main[fired='true'] .smokeCloud61{ opacity:1;}
+
+.smokeCloud62{ left:571px;opacity:0; transition-delay:.229s;top:103px;}
+
+#main[fired='true'] .smokeCloud62{ opacity:1;}
+
+.smokeCloud63{ left:559px;opacity:0; transition-delay:.241s;top:56px;}
+
+#main[fired='true'] .smokeCloud63{ opacity:1;}
+
+.smokeCloud64{ left:590px;opacity:0; transition-delay:.210s;top:60px;}
+
+#main[fired='true'] .smokeCloud64{ opacity:1;}
+
+.smokeCloud65{ left:606px;opacity:0; transition-delay:.194s;top:81px;}
+
+#main[fired='true'] .smokeCloud65{ opacity:1;}
+
+.smokeCloud66{ left:562px;opacity:0; transition-delay:.238s;top:83px;}
+
+#main[fired='true'] .smokeCloud66{ opacity:1;}
+
+.smokeCloud67{ left:602px;opacity:0; transition-delay:.198s;top:44px;}
+
+#main[fired='true'] .smokeCloud67{ opacity:1;}
+
+.smokeCloud68{ left:623px;opacity:0; transition-delay:.177s;top:104px;}
+
+#main[fired='true'] .smokeCloud68{ opacity:1;}
+
+.smokeCloud69{ left:623px;opacity:0; transition-delay:.177s;top:75px;}
+
+#main[fired='true'] .smokeCloud69{ opacity:1;}
+
+.smokeCloud70{ left:623px;opacity:0; transition-delay:.177s;top:45px;}
+
+#main[fired='true'] .smokeCloud70{ opacity:1;}
+
+.smokeCloud71{ left:606px;opacity:0; transition-delay:.194s;top:58px;}
+
+#main[fired='true'] .smokeCloud71{ opacity:1;}
+
+.smokeCloud72{ left:632px;opacity:0; transition-delay:.168s;top:128px;}
+
+#main[fired='true'] .smokeCloud72{ opacity:1;}
+
+.smokeCloud73{ left:593px;opacity:0; transition-delay:.207s;top:102px;}
+
+#main[fired='true'] .smokeCloud73{ opacity:1;}
+
+.smokeCloud74{ left:624px;opacity:0; transition-delay:.176s;top:0px;}
+
+#main[fired='true'] .smokeCloud74{ opacity:1;}
+
+.smokeCloud75{ left:597px;opacity:0; transition-delay:.203s;top:16px;}
+
+#main[fired='true'] .smokeCloud75{ opacity:1;}
+
+.smokeCloud76{ left:581px;opacity:0; transition-delay:.219s;top:82px;}
+
+#main[fired='true'] .smokeCloud76{ opacity:1;}
+
+.smokeCloud77{ left:549px;opacity:0; transition-delay:.251s;top:105px;}
+
+#main[fired='true'] .smokeCloud77{ opacity:1;}
+
+.smokeCloud78{ left:574px;opacity:0; transition-delay:.226s;top:42px;}
+
+#main[fired='true'] .smokeCloud78{ opacity:1;}
+
+.smokeCloud79{ left:550px;opacity:0; transition-delay:.250s;top:8px;}
+
+#main[fired='true'] .smokeCloud79{ opacity:1;}
+
+.smokeCloud80{ left:497px;opacity:0; transition-delay:.303s;top:97px;}
+
+#main[fired='true'] .smokeCloud80{ opacity:1;}
+
+.smokeCloud81{ left:517px;opacity:0; transition-delay:.283s;top:87px;}
+
+#main[fired='true'] .smokeCloud81{ opacity:1;}
+
+.smokeCloud82{ left:539px;opacity:0; transition-delay:.261s;top:63px;}
+
+#main[fired='true'] .smokeCloud82{ opacity:1;}
+
+.smokeCloud83{ left:516px;opacity:0; transition-delay:.284s;top:43px;}
+
+#main[fired='true'] .smokeCloud83{ opacity:1;}
+
+.smokeCloud84{ left:513px;opacity:0; transition-delay:.287s;top:19px;}
+
+#main[fired='true'] .smokeCloud84{ opacity:1;}
+
+.smokeCloud85{ left:57px;opacity:0; transition-delay:.743s;top:55px;}
+
+#main[fired='true'] .smokeCloud85{ opacity:1;}
+
+.smokeCloud86{ left:101px;opacity:0; transition-delay:.699s;top:59px;}
+
+#main[fired='true'] .smokeCloud86{ opacity:1;}
+
+.smokeCloud87{ left:139px;opacity:0; transition-delay:.661s;top:33px;}
+
+#main[fired='true'] .smokeCloud87{ opacity:1;}
+
+.smokeCloud88{ left:167px;opacity:0; transition-delay:.633s;top:59px;}
+
+#main[fired='true'] .smokeCloud88{ opacity:1;}
+
+.smokeCloud89{ left:210px;opacity:0; transition-delay:.590s;top:53px;}
+
+#main[fired='true'] .smokeCloud89{ opacity:1;}
+
+.smokeCloud90{ left:252px;opacity:0; transition-delay:.548s;top:60px;}
+
+#main[fired='true'] .smokeCloud90{ opacity:1;}
+
+.smokeCloud91{ left:446px;opacity:0; transition-delay:.354s;top:63px;}
+
+#main[fired='true'] .smokeCloud91{ opacity:1;}
+
+.smokeCloud92{ left:297px;opacity:0; transition-delay:.503s;top:65px;}
+
+#main[fired='true'] .smokeCloud92{ opacity:1;}
+
+.smokeCloud93{ left:298px;opacity:0; transition-delay:.502s;top:44px;}
+
+#main[fired='true'] .smokeCloud93{ opacity:1;}
+
+.smokeCloud94{ left:320px;opacity:0; transition-delay:.480s;top:56px;}
+
+#main[fired='true'] .smokeCloud94{ opacity:1;}
+
+.smokeCloud95{ left:344px;opacity:0; transition-delay:.456s;top:54px;}
+
+#main[fired='true'] .smokeCloud95{ opacity:1;}
+
+.smokeCloud96{ left:375px;opacity:0; transition-delay:.425s;top:67px;}
+
+#main[fired='true'] .smokeCloud96{ opacity:1;}
+
+.smokeCloud97{ left:377px;opacity:0; transition-delay:.423s;top:42px;}
+
+#main[fired='true'] .smokeCloud97{ opacity:1;}
+
+.smokeCloud98{ left:459px;opacity:0; transition-delay:.341s;top:87px;}
+
+#main[fired='true'] .smokeCloud98{ opacity:1;}
+
+.smokeCloud99{ left:470px;opacity:0; transition-delay:.330s;top:61px;}
+
+#main[fired='true'] .smokeCloud99{ opacity:1;}
+

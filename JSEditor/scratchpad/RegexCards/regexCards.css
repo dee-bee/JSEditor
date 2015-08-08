@@ -22,10 +22,6 @@
     border-radius: 5px;
 }
 
-#playersContainer{
-    clear: both;
-}
-
 .playerPotentialsLabel{
     float: left;
     margin-right: 10px;
@@ -47,11 +43,13 @@
     padding: 8px 5px 0px 5px;
     min-height: 30px;
     min-width: 10px;
-    float: left;
+    /* float: left; */
     margin: 2px;
+    transition: background-color 2s linear;
 }
 
 .playerContainer{
+    clear: both;
 }
 
 .regex{
@@ -106,7 +104,8 @@
 }
 
 
-#feedback{
+#feedback,
+.feedback{
     position: absolute;
     top: 100px;
     left: 200px;
@@ -114,6 +113,7 @@
     height: 300px;
     background-color: lightgray;
     display: none;
+    z-index: 1002;
 }
 
 #main .playerContainer:not([turn]) .playerRegexClickguard{
@@ -122,6 +122,10 @@
 
 #main .playerRegexClickguard{
     position: absolute;
+}
+
+#clickGuard{
+    z-index: 1001;
 }
 
 .playerRegexClickguard,
@@ -151,17 +155,15 @@
     cursor: pointer;
 }
 
-#feedbackMain{
-}
 
 #feedbackSelectLetterContainer{
 }
 
-#feedbackSelectLetter:hover{
+.feedbackSelectLetter:hover{
     background-color: darkgrey;
 }
 
-#feedbackSelectLetter{
+.feedbackSelectLetter{
     display: inline-block;
     background-color: grey;
     padding: 12px;
@@ -194,7 +196,7 @@
     background-color: grey;
 }
 
-.regexEnabled[enabled='true']{
+#main .regex[enabled='true'] .regexEnabled{
     background-color: black;
 }
 
@@ -209,4 +211,28 @@
 
 .playerRegexsContainer{
     position: relative;
+}
+
+
+#feedbackToggleRegex[state='disable'] #feedbackToggleRegex_enable{
+    display: none;
+}
+#feedbackToggleRegex[state='disable'] #feedbackToggleRegex_disable{
+    display: block;
+}
+
+
+#feedbackToggleRegex[state='enable'] #feedbackToggleRegex_enable{
+    display: block;
+}
+#feedbackToggleRegex[state='enable'] #feedbackToggleRegex_disable{
+    display: none;
+}
+
+.letterContainer{
+    background-color: darkgrey;
+    
+    padding: 5px;
+    margin: 2px;
+    float: left;
 }

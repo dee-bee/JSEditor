@@ -17,23 +17,30 @@
 			<div id="phrase">
 			</div>
 
-			<div id="playersContainer">
-			</div>
+			<!--<div id="playersContainer">
+			</div>-->
 		</div>
 
 		<div id="clickGuard"></div>
-		<div id="feedback">
-			<div id="feedbackMain">
-				<div id="feedbackSelectLetterContainer">
-					<div id="feedbackSelectLetterLabel">Select a letter.</div>
-					<div id="feedbackSelectLetter" onclick="letterSelected(this)">W</div>
-					<div id="feedbackSelectLetter" onclick="letterSelected(this)">O</div>
-					<div id="feedbackSelectLetter" onclick="letterSelected(this)">R</div>
-					<div id="feedbackSelectLetter" onclick="letterSelected(this)">L</div>
-					<div id="feedbackSelectLetter" onclick="letterSelected(this)">E</div>
-				</div>
+		<div id="feedbacks">
+			<div id="feedbackToggleRegex" class="feedback">
+				<div id="feedbackToggleRegex_enable"> 
+						Are you sure you want to enable the regex?</div>
+				<div id="feedbackToggleRegex_disable"> 
+						Are you sure you want to disable the regex?</div>
+				<div onclick="toggleRegex()">Yes</div>
+				<div onclick="closeFeedback()">Cancel</div>
+				<div>Dry Run (todo)</div>
 			</div>
-			<div id="closeFeedbackBtn" onclick="closeFeedback()">Close</div>
+
+			<div id="feedbackLetterSelect" class="feedback">
+				<div id="feedbackMain">
+					<div id="feedbackSelectLetterContainer">
+						<div id="feedbackSelectLetterLabel">Select a letter.</div>
+					</div>
+				</div>
+				<div id="closeFeedbackBtn" onclick="closeFeedback()">Close</div>
+			</div>
 		</div>
 
 		<div id="snippets">
@@ -41,7 +48,12 @@
 				<div class="regex">
 					<div class="regexStr"></div>
 					<div class="regexPoints">0</div>
-					<div class="regexEnabled" onclick="enableRegex(this)"></div>
+					<div class="regexEnabled" onclick="showFeedback('toggleRegex',this)"></div>
+				</div>
+			</div>
+			<div id="snippet_letter">
+				<div class='letterContainer'>
+					<div class='letter'></div>
 				</div>
 			</div>
 			<div id="snippet_card">
@@ -59,6 +71,9 @@
 						<div class="playerRegexClickguard"></div>
 					</div>
 				</div>
+			</div>
+			<div id="snippet_letterSelect">
+				<div class="feedbackSelectLetter" onclick="letterSelected(this)"></div>
 			</div>
 		</div>
 	</body>

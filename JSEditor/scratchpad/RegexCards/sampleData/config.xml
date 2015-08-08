@@ -1,4 +1,4 @@
 <config>
-    <player index="0" deck="Deck1"></player>
-    <player index="1" deck="Deck2"></player>
+    <player index="0" deck="Deck1" color="blue"></player>
+    <player index="1" deck="Deck2" color="green"></player>
 </config>

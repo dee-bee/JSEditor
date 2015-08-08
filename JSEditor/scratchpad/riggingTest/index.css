@@ -1,0 +1,150 @@
+body{
+}
+
+*{
+    position: absolute;
+}
+
+#character{
+    left: 200px;
+}
+
+#head{
+    background-color: red;
+
+    width: 50px;
+    height: 50px;
+    left: 75px;
+}
+
+#l_eye{
+    background-color: brown;
+
+    width: 15px;
+    height: 15px;
+    left: 10px;
+    top: 10px;
+}
+
+#r_eye{
+    width: 15px;
+
+    height: 15px;
+    background-color: brown;
+    top: 10px;
+    left: 31px;
+}
+
+#mouth{
+    background-color: black;
+
+    height: 8px;
+    width: 40px;
+    top: 34px;
+    left: 7px;
+}
+
+#neck{
+    background-color: green;
+
+    width: 15px;
+    height: 18px;
+    left: 94px;
+    top: 48px;
+}
+
+#body{
+    background-color: purple;
+
+    width: 82px;
+    height: 135px;
+    top: 65px;
+    left: 59px;
+}
+
+#l_upperArm{
+    background-color: blue;
+
+    width: 15px;
+    height: 68px;
+    left: 48px;
+    top: 67px;
+    transform-origin: 7px 0px;
+}
+
+#l_lowerArm{
+    width: 15px;
+
+    height: 56px;
+    background-color: green;
+    top: 67px;
+    transform-origin: 7px 0px;
+}
+
+#l_hand{
+    background-color: yellow;
+
+    width: 22px;
+    height: 24px;
+    top: 51px;
+    left: -4px;
+}
+
+#r_upperArm{
+    width: 15px;
+
+    height: 68px;
+    background-color: blue;
+    left: 136px;
+    top: 67px;
+}
+
+#r_lowerArm{
+    width: 15px;
+
+    height: 56px;
+    background-color: green;
+    top: 68px;
+}
+
+#r_hand{
+    background-color: yellow;
+
+    width: 22px;
+    height: 24px;
+    top: 51px;
+    left: -4px;
+}
+
+
+#l_upperLeg{
+
+}
+
+#l_lowerLeg{
+
+}
+
+#l_foot{
+
+}
+
+#r_upperLeg{
+
+}
+
+#r_lowerLeg{
+
+}
+
+#r_foot{
+
+}
+
+.rotateLUA1{
+
+}
+
+.rotateLLA1{
+    
+}
